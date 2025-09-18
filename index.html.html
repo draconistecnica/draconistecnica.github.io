@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draconis | Técnica em Informática e Games</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+        .font-oxanium { font-family: 'Oxanium', sans-serif; }
+        .bg-draconis {
+            background: radial-gradient(circle at center, #0f0b1a 0%, #1a0933 70%);
+        }
+        .text-draconis { color: #e94560; }
+        .text-draconis-neon { color: #ff00aa; }
+        .border-draconis-neon { border-color: #ff00aa; }
+        .neon-shadow {
+            text-shadow: 0 0 8px #ff00aa, 0 0 16px #e94560;
+        }
+        .glow-box {
+            box-shadow: 0 0 15px rgba(255, 0, 170, 0.5);
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        /* Menu Mobile */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-draconis text-gray-100 font-oxanium">
+    <!-- Header sem logo -->
+    <header class="container mx-auto px-4 py-4 border-b border-draconis-neon/20">
+        <div class="flex justify-between items-center">
+            <!-- Nome apenas (logo removida) -->
+            <span class="font-rajdhani text-2xl neon-shadow">DRACONIS</span>
+            
+            <!-- Botão Mobile -->
+            <button id="mobile-menu-button" class="md:hidden text-draconis-neon focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+
+            <!-- Menu Desktop -->
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8 font-oxanium">
+                    <li><a href="#servicos" class="hover:text-draconis-neon transition hover:neon-shadow">Serviços</a></li>
+                    <li><a href="#diferenciais" class="hover:text-draconis-neon transition hover:neon-shadow">Diferenciais</a></li>
+                    <li><a href="#contato" class="hover:text-draconis-neon transition hover:neon-shadow">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="mobile-menu md:hidden">
+            <ul class="flex flex-col space-y-4 py-4 font-oxanium">
+                <li><a href="#servicos" class="block hover:text-draconis-neon transition">Serviços</a></li>
+                <li><a href="#diferenciais" class="block hover:text-draconis-neon transition">Diferenciais</a></li>
+                <li><a href="#contato" class="block hover:text-draconis-neon transition">Contato</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section com logo 6x maior -->
+    <section class="container mx-auto px-4 py-12 md:py-20 text-center">
+        <!-- Logo centralizada 6x maior (h-48) -->
+        <div class="flex justify-center mb-8">
+            <img src="Draconis.png" alt="Logo Draconis" class="h-48 w-auto rounded-lg glow-box pulse">
+        </div>
+        
+        <h1 class="font-rajdhani text-5xl md:text-7xl mb-6 neon-shadow">TÉCNICA <span class="text-draconis-neon">INFORMÁTICA</span></h1>
+        <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">Reparos e desbloqueios com <span class="text-draconis-neon">tecnologia de ponta</span> para seu console</p>
+        <a href="https://wa.me/555199908347" class="bg-transparent border-2 border-draconis-neon text-draconis-neon px-8 py-4 rounded-lg font-bold hover:bg-purple-900/30 hover:glow-box transition inline-block neon-shadow">
+            ✆ WHATSAPP (51) 9990-8347
+        </a>
+        <div class="mt-16">
+            <div class="inline-block h-1 w-24 bg-draconis-neon glow-box"></div>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="container mx-auto px-4 py-16">
+        <h2 class="font-rajdhani text-4xl mb-12 text-center neon-shadow">
+            <span class="text-draconis-neon">/</span> SERVIÇOS <span class="text-draconis-neon">/</span>
+        </h2>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-gray-900/50 p-6 rounded-lg border border-draconis-neon/30 glow-box hover:border-draconis-neon transition">
+                <h3 class="font-rajdhani text-2xl mb-4 text-draconis-neon">DESBLOQUEIOS</h3>
+                <ul class="space-y-3 font-oxanium">
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> PS2 (OPL + HD externo)
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> Xbox 360 (Aurora)
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> PS3 (HEN/Custom FW)
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> PS4/PS5 (Consultar)
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-gray-900/50 p-6 rounded-lg border border-draconis-neon/30 glow-box hover:border-draconis-neon transition">
+                <h3 class="font-rajdhani text-2xl mb-4 text-draconis-neon">REPAROS</h3>
+                <ul class="space-y-3 font-oxanium">
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> Troca de thermal paste
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> Conserto de placa-mãe
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> Limpeza profunda
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> Recuperação de dados
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-gray-900/50 p-6 rounded-lg border border-draconis-neon/30 glow-box hover:border-draconis-neon transition">
+                <h3 class="font-rajdhani text-2xl mb-4 text-draconis-neon">INFORMÁTICA</h3>
+                <ul class="space-y-3 font-oxanium">
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> Formatação de PCs
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> Upgrade de hardware
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> Remoção de vírus
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-draconis-neon mr-2">◉</span> Instalação de SO
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diferenciais -->
+    <section id="diferenciais" class="py-16 bg-gradient-to-b from-purple-900/10 to-transparent">
+        <div class="container mx-auto px-4">
+            <h2 class="font-rajdhani text-4xl mb-12 text-center neon-shadow">
+                <span class="text-draconis-neon">/</span> POR QUE A DRACONIS? <span class="text-draconis-neon">/</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+                <div class="flex items-start">
+                    <div class="text-draconis-neon mr-4 text-2xl">⚡</div>
+                    <div>
+                        <h3 class="font-rajdhani text-xl mb-2 text-draconis-neon">Técnica Certificada</h3>
+                        <p class="font-oxanium">5+ anos de experiência em reparos e desbloqueios de consoles.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="text-draconis-neon mr-4 text-2xl">🛡️</div>
+                    <div>
+                        <h3 class="font-rajdhani text-xl mb-2 text-draconis-neon">Garantia Real</h3>
+                        <p class="font-oxanium">90 dias de garantia em todos os serviços.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="text-draconis-neon mr-4 text-2xl">🎮</div>
+                    <div>
+                        <h3 class="font-rajdhani text-xl mb-2 text-draconis-neon">Especialista em Games</h3>
+                        <p class="font-oxanium">Desde PS2 até PS5, conhecemos cada geração.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="text-draconis-neon mr-4 text-2xl">💼</div>
+                    <div>
+                        <h3 class="font-rajdhani text-xl mb-2 text-draconis-neon">Orçamento Grátis</h3>
+                        <p class="font-oxanium">Diagnóstico sem custo e preços justos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section id="contato" class="container mx-auto px-4 py-20 text-center">
+        <h2 class="font-rajdhani text-5xl mb-6 neon-shadow">
+            <span class="text-draconis-neon">LEVE SEU CONSOLE</span> AO PRÓXIMO NÍVEL
+        </h2>
+        <p class="text-xl mb-10 max-w-2xl mx-auto font-oxanium">Tecnologia e paixão por games em um só lugar.</p>
+        <a href="https://wa.me/555199908347" class="bg-transparent border-2 border-draconis-neon text-draconis-neon px-8 py-4 rounded-lg font-bold hover:bg-purple-900/30 hover:glow-box transition inline-block neon-shadow font-rajdhani text-xl">
+            ✆ FALE COM A DRACONIS
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center border-t border-draconis-neon/20">
+        <div class="container mx-auto px-4">
+            <p class="font-oxanium text-sm text-purple-300/70">© 2023 DRACONIS TÉCNICA INFORMÁTICA E GAMES • (51) 9990-8347</p>
+            <p class="mt-2 font-oxanium text-xs text-purple-400/50">Tecnologia com DNA gamer</p>
+        </div>
+    </footer>
+
+    <!-- Script para menu mobile -->
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
