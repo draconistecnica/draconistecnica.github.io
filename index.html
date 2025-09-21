@@ -83,6 +83,91 @@
             color: #ff00aa;
             text-shadow: 0 0 10px #ff00aa;
         }
+        /* Accordion Styles */
+        .accordion-button {
+            background: linear-gradient(90deg, #ff00aa, #e94560);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+        .accordion-button:hover {
+            background: linear-gradient(90deg, #e94560, #ff00aa);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: rgba(15, 11, 26, 0.95);
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            padding: 0 1rem;
+        }
+        .accordion-content.active {
+            max-height: 400px; /* Adjust based on content size */
+            padding: 1rem;
+        }
+        .game-list {
+            columns: 3; /* Three-column layout */
+            column-gap: 2rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 350px; /* Limit height for scroll */
+            overflow-y: auto;
+        }
+        .game-list li {
+            margin-bottom: 0.5rem;
+            color: #e94560;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        .game-list li input[type="checkbox"] {
+            margin-right: 0.5rem;
+            accent-color: #ff00aa;
+        }
+        /* Radio Button Styles */
+        .pack-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .pack-selector label {
+            color: #e94560;
+            font-family: 'Oxanium', sans-serif;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .pack-selector input[type="radio"] {
+            margin-right: 0.5rem;
+            accent-color: #ff00aa;
+        }
+        /* Copy Button Styles */
+        .copy-button {
+            background: linear-gradient(90deg, #ff00aa, #e94560);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        .copy-button:hover {
+            background: linear-gradient(90deg, #e94560, #ff00aa);
+        }
     </style>
 </head>
 <body class="bg-draconis text-gray-100 font-oxanium">
@@ -257,6 +342,260 @@
                 </tbody>
             </table>
             <p class="mt-4 text-sm text-purple-300/70">*Não passamos jogos para pendrives que não sejam da loja.</p>
+            <!-- Accordion for Game List -->
+            <div class="accordion">
+                <div class="accordion-button" id="game-list-toggle">
+                    <span>Lista de Jogos Disponíveis para PS2</span>
+                    <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="accordion-content" id="game-list-content">
+                    <div class="pack-selector">
+                        <label><input type="radio" name="pack" value="5" checked> Pack 5 Jogos</label>
+                        <label><input type="radio" name="pack" value="15"> Pack 15 Jogos</label>
+                    </div>
+                    <ul class="game-list">
+                        <li><input type="checkbox" class="game-checkbox" data-game="007 - Everything or Nothing (USA)"> 007 - Everything or Nothing (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="007 - Nightfire (USA)"> 007 - Nightfire (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Ace Combat 04 - Shattered Skies (USA)"> Ace Combat 04 - Shattered Skies (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Ace Combat 5 - The Unsung War (USA) (En,Ja)"> Ace Combat 5 - The Unsung War (USA) (En,Ja)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Ace Combat Zero - The Belkan War (USA)"> Ace Combat Zero - The Belkan War (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Alone in the Dark (USA)"> Alone in the Dark (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Baldur's Gate - Dark Alliance (USA)"> Baldur's Gate - Dark Alliance (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Batman Begins (USA)"> Batman Begins (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Battlefield 2 - Modern Combat (USA)"> Battlefield 2 - Modern Combat (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Beyond Good & Evil (USA) (En,Fr,Es)"> Beyond Good & Evil (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Black (USA)"> Black (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Brothers in Arms - Earned in Blood (USA)"> Brothers in Arms - Earned in Blood (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Brothers in Arms - Road to Hill 30 (USA)"> Brothers in Arms - Road to Hill 30 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Bully (USA)"> Bully (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Burnout (USA)"> Burnout (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Burnout 2 - Point of Impact (USA)"> Burnout 2 - Point of Impact (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Burnout 3 - Takedown (USA)"> Burnout 3 - Takedown (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Burnout Dominator (USA)"> Burnout Dominator (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Burnout Revenge (USA)"> Burnout Revenge (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Call of Duty - Finest Hour (USA)"> Call of Duty - Finest Hour (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Call of Duty 2 - Big Red One - Collector's Edition (USA)"> Call of Duty 2 - Big Red One - Collector's Edition (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Call of Duty 3 (USA)"> Call of Duty 3 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Capcom Classics Collection Vol. 2 (USA)"> Capcom Classics Collection Vol. 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Champions of Norrath (USA)"> Champions of Norrath (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Chaos Legion (USA) (En,Ja,Fr,Es)"> Chaos Legion (USA) (En,Ja,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Chronicles of Narnia, The - Prince Caspian (USA)"> Chronicles of Narnia, The - Prince Caspian (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Chronicles of Narnia, The - The Lion, the Witch and the Wardrobe (USA)"> Chronicles of Narnia, The - The Lion, the Witch and the Wardrobe (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Crash - Mind Over Mutant (USA)"> Crash - Mind Over Mutant (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Crash Bandicoot - The Wrath of Cortex (USA)"> Crash Bandicoot - The Wrath of Cortex (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Crash Nitro Kart (USA)"> Crash Nitro Kart (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Crash of the Titans (USA)"> Crash of the Titans (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Crash Tag Team Racing (USA)"> Crash Tag Team Racing (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Crash Twinsanity (USA)"> Crash Twinsanity (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dark Cloud 2 (USA) (v2.00)"> Dark Cloud 2 (USA) (v2.00)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Deus Ex - The Conspiracy (USA)"> Deus Ex - The Conspiracy (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Devil May Cry (USA)"> Devil May Cry (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Digimon Rumble Arena 2 (USA)"> Digimon Rumble Arena 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Digimon World - Data Squad (USA)"> Digimon World - Data Squad (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Digimon World 4 (USA)"> Digimon World 4 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dirge of Cerberus - Final Fantasy VII (USA)"> Dirge of Cerberus - Final Fantasy VII (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dot Hack G.U. Vol. 1 - Rebirth (USA)"> Dot Hack G.U. Vol. 1 - Rebirth (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dot Hack G.U. Vol. 2 - Reminisce (USA)"> Dot Hack G.U. Vol. 2 - Reminisce (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dot Hack G.U. Vol. 3 - Redemption (USA)"> Dot Hack G.U. Vol. 3 - Redemption (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dot Hack Part 1 - Infection (USA) (En,Ja)"> Dot Hack Part 1 - Infection (USA) (En,Ja)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dot Hack Part 2 - Mutation (USA) (En,Ja)"> Dot Hack Part 2 - Mutation (USA) (En,Ja)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dot Hack Part 3 - Outbreak (USA) (En,Ja)"> Dot Hack Part 3 - Outbreak (USA) (En,Ja)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dot Hack Part 4 - Quarantine (USA) (En,Ja)"> Dot Hack Part 4 - Quarantine (USA) (En,Ja)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dragon Ball Z - Budokai (USA)"> Dragon Ball Z - Budokai (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dragon Ball Z - Budokai 2 (USA)"> Dragon Ball Z - Budokai 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dragon Ball Z - Budokai 3 (USA)"> Dragon Ball Z - Budokai 3 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dragon Ball Z - Budokai Tenkaichi (USA)"> Dragon Ball Z - Budokai Tenkaichi (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dragon Ball Z - Budokai Tenkaichi 2 (USA) (En,Ja)"> Dragon Ball Z - Budokai Tenkaichi 2 (USA) (En,Ja)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dragon Ball Z - Budokai Tenkaichi 3 (USA) (En,Ja)"> Dragon Ball Z - Budokai Tenkaichi 3 (USA) (En,Ja)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dragon Ball Z - Infinite World (USA)"> Dragon Ball Z - Infinite World (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dragon Ball Z - Sagas (USA)"> Dragon Ball Z - Sagas (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dragon Quest VIII - Journey of the Cursed King (USA)"> Dragon Quest VIII - Journey of the Cursed King (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Driv3r (USA) (En,Fr,Es)"> Driv3r (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Driver - Parallel Lines (Europe) (En,Fr,De)"> Driver - Parallel Lines (Europe) (En,Fr,De)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Dynasty Warriors 5 (USA)"> Dynasty Warriors 5 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Enter the Matrix (USA) (v2.00)"> Enter the Matrix (USA) (v2.00)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Evil Dead - Regeneration (USA)"> Evil Dead - Regeneration (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="F1 2002 (Europe) (En,Fr,De,Es,It,Fi)"> F1 2002 (Europe) (En,Fr,De,Es,It,Fi)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Fatal Frame (USA)"> Fatal Frame (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Fatal Frame II - Crimson Butterfly (USA)"> Fatal Frame II - Crimson Butterfly (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Fatal Frame III - The Tormented (USA)"> Fatal Frame III - The Tormented (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Final Fantasy X-2 (USA)"> Final Fantasy X-2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Final Fantasy XII International Zodiac Job System English Translation v22"> Final Fantasy XII International Zodiac Job System English Translation v22</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Freedom Fighters (USA)"> Freedom Fighters (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Fullmetal Alchemist 2 - Curse of the Crimson Elixir (USA)"> Fullmetal Alchemist 2 - Curse of the Crimson Elixir (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Fullmetal Alchemist and the Broken Angel (USA)"> Fullmetal Alchemist and the Broken Angel (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="God of War (USA)"> God of War (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="God of War II (USA)"> God of War II (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Godfather, The - The Game (USA)"> Godfather, The - The Game (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Gran Turismo 3 - A-spec (USA) (v1.10)"> Gran Turismo 3 - A-spec (USA) (v1.10)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Gran Turismo 4 (USA)"> Gran Turismo 4 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Grand Theft Auto - Liberty City Stories (USA)"> Grand Theft Auto - Liberty City Stories (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Grand Theft Auto - San Andreas (USA) (v3.00)"> Grand Theft Auto - San Andreas (USA) (v3.00)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Grand Theft Auto - Vice City (USA) (v3.00)"> Grand Theft Auto - Vice City (USA) (v3.00)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Grand Theft Auto - Vice City Stories (USA)"> Grand Theft Auto - Vice City Stories (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Grand Theft Auto III (USA)"> Grand Theft Auto III (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Guitar Hero (USA)"> Guitar Hero (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Guitar Hero - Metallica (USA)"> Guitar Hero - Metallica (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Guitar Hero 5 (USA) (En,Fr)"> Guitar Hero 5 (USA) (En,Fr)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Guitar Hero Encore - Rocks the 80s (USA)"> Guitar Hero Encore - Rocks the 80s (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Guitar Hero II (USA)"> Guitar Hero II (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Guitar Hero III - Legends of Rock (USA)"> Guitar Hero III - Legends of Rock (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Guitar Hero World Tour (USA) (En,Fr)"> Guitar Hero World Tour (USA) (En,Fr)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Gun (USA)"> Gun (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Half-Life (USA)"> Half-Life (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Hitman - Blood Money (USA)"> Hitman - Blood Money (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Hitman - Contracts (USA)"> Hitman - Contracts (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Hitman 2 - Silent Assassin (USA) (v3.01)"> Hitman 2 - Silent Assassin (USA) (v3.01)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="ICO (USA)"> ICO (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Incredible Hulk, The (USA)"> Incredible Hulk, The (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Incredible Hulk, The - Ultimate Destruction (USA)"> Incredible Hulk, The - Ultimate Destruction (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Inuyasha - The Secret of the Cursed Mask (USA)"> Inuyasha - The Secret of the Cursed Mask (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Jak 3 (USA) (En,Fr,De,Es,It,Pt,Ru)"> Jak 3 (USA) (En,Fr,De,Es,It,Pt,Ru)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Jak and Daxter - The Precursor Legacy (USA) (En,Fr,De,Es,It)"> Jak and Daxter - The Precursor Legacy (USA) (En,Fr,De,Es,It)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Jak II (USA) (En,Ja,Fr,De,Es,It,Ko) (v2.01)"> Jak II (USA) (En,Ja,Fr,De,Es,It,Ko) (v2.01)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Justice League Heroes (USA)"> Justice League Heroes (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Killzone (USA)"> Killzone (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="King of Fighters 2000-2001, The (Europe)"> King of Fighters 2000-2001, The (Europe)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Kingdom Hearts (USA)"> Kingdom Hearts (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Kingdom Hearts - Re-Chain of Memories (USA)"> Kingdom Hearts - Re-Chain of Memories (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Kingdom Hearts 2 Final Mix English Patched"> Kingdom Hearts 2 Final Mix English Patched</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Klonoa 2 - Lunatea's Veil (USA)"> Klonoa 2 - Lunatea's Veil (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Lara Croft Tomb Raider - Anniversary (USA)"> Lara Croft Tomb Raider - Anniversary (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Lara Croft Tomb Raider - Legend (USA)"> Lara Croft Tomb Raider - Legend (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Lara Croft Tomb Raider - The Angel of Darkness (USA)"> Lara Croft Tomb Raider - The Angel of Darkness (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Legacy of Kain - Defiance (USA)"> Legacy of Kain - Defiance (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Legacy of Kain - Soul Reaver 2 (USA)"> Legacy of Kain - Soul Reaver 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="LEGO Star Wars - The Video Game (USA) (v2.00)"> LEGO Star Wars - The Video Game (USA) (v2.00)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="LEGO Star Wars II - The Original Trilogy (USA)"> LEGO Star Wars II - The Original Trilogy (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Lord of the Rings, The - The Fellowship of the Ring (USA)"> Lord of the Rings, The - The Fellowship of the Ring (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Lord of the Rings, The - The Return of the King (USA)"> Lord of the Rings, The - The Return of the King (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Lord of the Rings, The - The Third Age (Europe) (En,Nl,Pt,Sv,Pl)"> Lord of the Rings, The - The Third Age (Europe) (En,Nl,Pt,Sv,Pl)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Lord of the Rings, The - The Two Towers (USA)"> Lord of the Rings, The - The Two Towers (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Marvel - Ultimate Alliance (USA)"> Marvel - Ultimate Alliance (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Matrix, The - Path of Neo (USA)"> Matrix, The - Path of Neo (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Max Payne (USA)"> Max Payne (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Max Payne 2 - The Fall of Max Payne (USA)"> Max Payne 2 - The Fall of Max Payne (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Medal of Honor - European Assault (USA)"> Medal of Honor - European Assault (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Medal of Honor - Frontline (USA)"> Medal of Honor - Frontline (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Medal of Honor - Rising Sun (USA)"> Medal of Honor - Rising Sun (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Medal of Honor - Vanguard (USA)"> Medal of Honor - Vanguard (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mega Man Anniversary Collection (USA)"> Mega Man Anniversary Collection (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mega Man X - Command Mission (USA)"> Mega Man X - Command Mission (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mega Man X Collection (USA)"> Mega Man X Collection (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mega Man X7 (USA)"> Mega Man X7 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mega Man X8 (USA)"> Mega Man X8 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mercenaries (USA)"> Mercenaries (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Metal Gear Solid 2 - Substance (USA)"> Metal Gear Solid 2 - Substance (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Metal Gear Solid 3 Subsistence (2006)"> Metal Gear Solid 3 Subsistence (2006)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Metal Slug Anthology (USA)"> Metal Slug Anthology (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Midnight Club - Street Racing (USA)"> Midnight Club - Street Racing (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Midnight Club 3 - DUB Edition Remix (USA)"> Midnight Club 3 - DUB Edition Remix (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Midnight Club II (USA)"> Midnight Club II (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mortal Kombat - Armageddon - Premium Edition (USA)"> Mortal Kombat - Armageddon - Premium Edition (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mortal Kombat - Deadly Alliance (USA)"> Mortal Kombat - Deadly Alliance (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mortal Kombat - Deception (USA)"> Mortal Kombat - Deception (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Mortal Kombat - Shaolin Monks (USA)"> Mortal Kombat - Shaolin Monks (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Need for Speed - Carbon (USA)"> Need for Speed - Carbon (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Need for Speed - Hot Pursuit 2 (USA)"> Need for Speed - Hot Pursuit 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Need for Speed - Most Wanted - Black Edition (USA)"> Need for Speed - Most Wanted - Black Edition (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Need for Speed - ProStreet (USA)"> Need for Speed - ProStreet (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Need for Speed - Undercover (USA) (En,Fr,Es)"> Need for Speed - Undercover (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Need for Speed - Underground (USA)"> Need for Speed - Underground (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Need for Speed - Underground 2 (USA)"> Need for Speed - Underground 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Okami (USA)"> Okami (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Onimusha 2 - Samurai's Destiny (USA)"> Onimusha 2 - Samurai's Destiny (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="PES 2013 - Pro Evolution Soccer (Europe) (En,Nl,Sv,Ru,Tr)"> PES 2013 - Pro Evolution Soccer (Europe) (En,Nl,Sv,Ru,Tr)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="PES 2014 - Pro Evolution Soccer (Europe) (En,Nl,Sv,Ru,Tr)"> PES 2014 - Pro Evolution Soccer (Europe) (En,Nl,Sv,Ru,Tr)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Pitfall - The Lost Expedition (USA)"> Pitfall - The Lost Expedition (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Prince of Persia - The Sands of Time (USA) (En,Fr,Es)"> Prince of Persia - The Sands of Time (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Prince of Persia - The Two Thrones (USA) (En,Fr,Es)"> Prince of Persia - The Two Thrones (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Prince of Persia - Warrior Within (USA) (En,Fr,Es)"> Prince of Persia - Warrior Within (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Ratchet & Clank (USA) (En,Fr,De,Es,It)"> Ratchet & Clank (USA) (En,Fr,De,Es,It)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Ratchet & Clank - Going Commando (USA)"> Ratchet & Clank - Going Commando (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Ratchet & Clank - Up Your Arsenal (USA) (En,Fr,Es)"> Ratchet & Clank - Up Your Arsenal (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Ratchet - Deadlocked (USA) (En,Fr,Es)"> Ratchet - Deadlocked (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Rayman 2 - Revolution (USA)"> Rayman 2 - Revolution (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Rayman 3 - Hoodlum Havoc (USA) (En,Fr,De,Es,It)"> Rayman 3 - Hoodlum Havoc (USA) (En,Fr,De,Es,It)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Red Dead Revolver (USA)"> Red Dead Revolver (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Resident Evil - Outbreak (USA) (v2.00)"> Resident Evil - Outbreak (USA) (v2.00)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Resident Evil - Outbreak - File #2 (USA)"> Resident Evil - Outbreak - File #2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Rogue Galaxy (USA)"> Rogue Galaxy (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Saint Seiya - The Hades (Europe) (En,Ja,Fr,Es,It)"> Saint Seiya - The Hades (Europe) (En,Ja,Fr,Es,It)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sega Genesis Collection (USA)"> Sega Genesis Collection (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Shadow of the Colossus (USA)"> Shadow of the Colossus (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Shin Megami Tensei - Persona 4 (USA)"> Shin Megami Tensei - Persona 4 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Silent Hill 2 (USA) (En,Ja)"> Silent Hill 2 (USA) (En,Ja)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Silent Hill 3 (USA)"> Silent Hill 3 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Silent Hill 4 - The Room (USA) (En,Ja)"> Silent Hill 4 - The Room (USA) (En,Ja)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Silent Hill Origins (USA) (En,Fr,De,Es,It)"> Silent Hill Origins (USA) (En,Fr,De,Es,It)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Simpsons, The - Hit & Run (USA)"> Simpsons, The - Hit & Run (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sims 2, The - Castaway (USA)"> Sims 2, The - Castaway (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sims, The (USA)"> Sims, The (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sims, The - Bustin' Out (USA)"> Sims, The - Bustin' Out (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sniper Elite (USA)"> Sniper Elite (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="SOCOM - U.S. Navy SEALs (USA)"> SOCOM - U.S. Navy SEALs (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="SOCOM - U.S. Navy SEALs - Combined Assault (USA)"> SOCOM - U.S. Navy SEALs - Combined Assault (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="SOCOM 3 - U.S. Navy SEALs (USA)"> SOCOM 3 - U.S. Navy SEALs (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="SOCOM II - U.S. Navy SEALs (USA)"> SOCOM II - U.S. Navy SEALs (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sonic Heroes (USA) (En,Ja,Fr,De,Es,It)"> Sonic Heroes (USA) (En,Ja,Fr,De,Es,It)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sonic Mega Collection Plus (USA)"> Sonic Mega Collection Plus (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sonic Riders (USA) (En,Ja,Fr,De,Es,It)"> Sonic Riders (USA) (En,Ja,Fr,De,Es,It)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sonic Riders - Zero Gravity (USA) (En,Ja,Fr,De,Es,It)"> Sonic Riders - Zero Gravity (USA) (En,Ja,Fr,De,Es,It)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Sonic Unleashed (USA) (En,Ja,Fr,De,Es,It)"> Sonic Unleashed (USA) (En,Ja,Fr,De,Es,It)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Spider-Man 2 (USA)"> Spider-Man 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Spiderman Friend Or Foe (USA)"> Spiderman Friend Or Foe (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Star Wars - Battlefront (USA)"> Star Wars - Battlefront (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Star Wars - Battlefront II (USA)"> Star Wars - Battlefront II (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Star Wars - Bounty Hunter (USA)"> Star Wars - Bounty Hunter (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Star Wars - Jedi Starfighter (USA)"> Star Wars - Jedi Starfighter (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Star Wars - Racer Revenge (Europe)"> Star Wars - Racer Revenge (Europe)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Star Wars - Starfighter (USA)"> Star Wars - Starfighter (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Star Wars - The Clone Wars (France)"> Star Wars - The Clone Wars (France)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Star Wars - The Force Unleashed (USA) (En,Fr)"> Star Wars - The Force Unleashed (USA) (En,Fr)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Street Fighter Alpha Anthology (USA)"> Street Fighter Alpha Anthology (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Street Fighter Anniversary Collection (USA)"> Street Fighter Anniversary Collection (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Super Dragon Ball Z (USA)"> Super Dragon Ball Z (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Syphon Filter - Logan's Shadow (USA)"> Syphon Filter - Logan's Shadow (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tales of the Abyss (USA)"> Tales of the Abyss (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Teenage Mutant Ninja Turtles (USA)"> Teenage Mutant Ninja Turtles (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Teenage Mutant Ninja Turtles 3 - Mutant Nightmare (USA)"> Teenage Mutant Ninja Turtles 3 - Mutant Nightmare (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tekken 4 (USA)"> Tekken 4 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tekken 5 (USA)"> Tekken 5 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tekken Tag Tournament (USA)"> Tekken Tag Tournament (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="TimeSplitters - Future Perfect (USA)"> TimeSplitters - Future Perfect (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="TimeSplitters 2 (USA)"> TimeSplitters 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="TMNT (USA)"> TMNT (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tom Clancy's Ghost Recon - Jungle Storm (USA)"> Tom Clancy's Ghost Recon - Jungle Storm (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tom Clancy's Rainbow Six - Lockdown (USA)"> Tom Clancy's Rainbow Six - Lockdown (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tom Clancy's Rainbow Six 3 (USA)"> Tom Clancy's Rainbow Six 3 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tom Clancy's Splinter Cell (USA)"> Tom Clancy's Splinter Cell (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tom Clancy's Splinter Cell - Chaos Theory (USA) (En,Fr,Es)"> Tom Clancy's Splinter Cell - Chaos Theory (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tom Clancy's Splinter Cell - Double Agent (USA) (En,Fr,Es)"> Tom Clancy's Splinter Cell - Double Agent (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tom Clancy's Splinter Cell - Pandora Tomorrow (USA)"> Tom Clancy's Splinter Cell - Pandora Tomorrow (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tomb Raider - Underworld (USA) (En,Fr,Es)"> Tomb Raider - Underworld (USA) (En,Fr,Es)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tony Hawk's American Wasteland (USA)"> Tony Hawk's American Wasteland (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tony Hawk's Downhill Jam (USA)"> Tony Hawk's Downhill Jam (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tony Hawk's Pro Skater 3 (USA)"> Tony Hawk's Pro Skater 3 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tony Hawk's Pro Skater 4 (USA)"> Tony Hawk's Pro Skater 4 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tony Hawk's Project 8 (USA)"> Tony Hawk's Project 8 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tony Hawk's Proving Ground (USA)"> Tony Hawk's Proving Ground (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tony Hawk's Underground (USA)"> Tony Hawk's Underground (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Tony Hawk's Underground 2 (USA)"> Tony Hawk's Underground 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="True Crime - Streets of LA (USA)"> True Crime - Streets of LA (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Ultimate Spider-Man (USA)"> Ultimate Spider-Man (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Viewtiful Joe 2 (USA)"> Viewtiful Joe 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Virtua Fighter 4 - Evolution (USA)"> Virtua Fighter 4 - Evolution (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="X-Men Legends (USA)"> X-Men Legends (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="X-Men Legends II - Rise of Apocalypse (USA)"> X-Men Legends II - Rise of Apocalypse (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Yakuza (USA)"> Yakuza (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Yakuza 2 (USA)"> Yakuza 2 (USA)</li>
+                        <li><input type="checkbox" class="game-checkbox" data-game="Yu-Gi-Oh! The Duelists of the Roses (USA)"> Yu-Gi-Oh! The Duelists of the Roses (USA)</li>
+                    </ul>
+                    <button class="copy-button" id="copy-games">Copiar Lista para WhatsApp</button>
+                </div>
+            </div>
         </div>
 
         <div class="section-divider"></div>
