@@ -10,190 +10,433 @@
         .font-rajdhani { font-family: 'Rajdhani', sans-serif; }
         .font-oxanium { font-family: 'Oxanium', sans-serif; }
         .bg-draconis {
-            background: radial-gradient(circle at center, #0f0b1a 0%, #1a0933 70%);
+            background: linear-gradient(135deg, #0f0b1a 0%, #1a0933 70%, #2a1b4a 100%);
         }
         .text-draconis { color: #e94560; }
         .text-draconis-neon { color: #ff00aa; }
         .border-draconis-neon { border-color: #ff00aa; }
         .neon-shadow {
-            text-shadow: 0 0 8px #ff00aa, 0 0 16px #e94560;
+            text-shadow: 0 0 10px #ff00aa, 0 0 20px #e94560, 0 0 30px rgba(255, 0, 170, 0.5);
         }
         .glow-box {
-            box-shadow: 0 0 15px rgba(255, 0, 170, 0.5);
+            box-shadow: 0 0 20px rgba(255, 0, 170, 0.7), 0 0 40px rgba(233, 69, 96, 0.3);
         }
         .pulse {
-            animation: pulse 2s infinite;
+            animation: pulse 1.5s infinite ease-in-out;
         }
         @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; }
-            100% { opacity: 1; }
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.85; }
+            100% { transform: scale(1); opacity: 1; }
         }
-        /* Menu Mobile */
         .mobile-menu {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
+            transition: max-height 0.4s ease-out;
         }
         .mobile-menu.active {
-            max-height: 500px;
+            max-height: 600px;
+        }
+        .table-container {
+            background: rgba(15, 11, 26, 0.9);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 0 25px rgba(255, 0, 170, 0.4);
+            margin-bottom: 2rem;
+        }
+        .table-header {
+            background: linear-gradient(90deg, #ff00aa, #e94560);
+            color: white;
+            font-weight: bold;
+        }
+        .table-row:hover {
+            background: rgba(255, 0, 170, 0.1);
+            transition: background 0.3s ease;
+        }
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ff00aa, transparent);
+            margin: 2rem 0;
+        }
+        /* Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background: rgba(15, 11, 26, 0.95);
+            border: 1px solid #ff00aa;
+            border-radius: 8px;
+            padding: 1rem;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            z-index: 10;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu li a {
+            display: block;
+            padding: 0.5rem 0;
+            color: #e94560;
+        }
+        .dropdown-menu li a:hover {
+            color: #ff00aa;
+            text-shadow: 0 0 10px #ff00aa;
         }
     </style>
 </head>
 <body class="bg-draconis text-gray-100 font-oxanium">
-    <!-- Header sem logo -->
-    <header class="container mx-auto px-4 py-4 border-b border-draconis-neon/20">
+    <!-- Header -->
+    <header class="container mx-auto px-6 py-6 border-b border-draconis-neon/30">
         <div class="flex justify-between items-center">
-            <!-- Nome apenas (logo removida) -->
-            <span class="font-rajdhani text-2xl neon-shadow">DRACONIS</span>
-            
-            <!-- Botão Mobile -->
+            <span class="font-rajdhani text-3xl neon-shadow tracking-wider">DRACONIS</span>
             <button id="mobile-menu-button" class="md:hidden text-draconis-neon focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
             </button>
-
             <!-- Menu Desktop -->
             <nav class="hidden md:block">
-                <ul class="flex space-x-8 font-oxanium">
+                <ul class="flex space-x-10 font-oxanium text-lg">
                     <li><a href="#servicos" class="hover:text-draconis-neon transition hover:neon-shadow">Serviços</a></li>
+                    <li class="relative dropdown">
+                        <a href="#precos" class="hover:text-draconis-neon transition hover:neon-shadow">Preços</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#precos-ps2">PS2</a></li>
+                            <li><a href="#precos-ps3">PS3</a></li>
+                            <li><a href="#precos-xbox360">Xbox 360</a></li>
+                            <li><a href="#precos-ps4">PS4</a></li>
+                            <li><a href="#precos-xboxone">Xbox One</a></li>
+                            <li><a href="#precos-computadores">Computadores/Notebooks</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#diferenciais" class="hover:text-draconis-neon transition hover:neon-shadow">Diferenciais</a></li>
                     <li><a href="#contato" class="hover:text-draconis-neon transition hover:neon-shadow">Contato</a></li>
                 </ul>
             </nav>
         </div>
-
         <!-- Menu Mobile -->
         <div id="mobile-menu" class="mobile-menu md:hidden">
-            <ul class="flex flex-col space-y-4 py-4 font-oxanium">
+            <ul class="flex flex-col space-y-6 py-6 font-oxanium text-lg">
                 <li><a href="#servicos" class="block hover:text-draconis-neon transition">Serviços</a></li>
+                <li>
+                    <a href="#precos" class="block hover:text-draconis-neon transition">Preços</a>
+                    <ul class="pl-4 mt-2 space-y-2">
+                        <li><a href="#precos-ps2" class="block hover:text-draconis-neon transition">PS2</a></li>
+                        <li><a href="#precos-ps3" class="block hover:text-draconis-neon transition">PS3</a></li>
+                        <li><a href="#precos-xbox360" class="block hover:text-draconis-neon transition">Xbox 360</a></li>
+                        <li><a href="#precos-ps4" class="block hover:text-draconis-neon transition">PS4</a></li>
+                        <li><a href="#precos-xboxone" class="block hover:text-draconis-neon transition">Xbox One</a></li>
+                        <li><a href="#precos-computadores" class="block hover:text-draconis-neon transition">Computadores/Notebooks</a></li>
+                    </ul>
+                </li>
                 <li><a href="#diferenciais" class="block hover:text-draconis-neon transition">Diferenciais</a></li>
                 <li><a href="#contato" class="block hover:text-draconis-neon transition">Contato</a></li>
             </ul>
         </div>
     </header>
 
-    <!-- Hero Section com logo 6x maior -->
-    <section class="container mx-auto px-4 py-12 md:py-20 text-center">
-        <!-- Logo centralizada 6x maior (h-48) -->
-        <div class="flex justify-center mb-8">
-            <img src="Draconis.png" alt="Logo Draconis" class="h-48 w-auto rounded-lg glow-box pulse">
+    <!-- Hero Section -->
+    <section class="container mx-auto px-6 py-16 md:py-24 text-center">
+        <div class="flex justify-center mb-10">
+            <img src="Draconis.png" alt="Logo Draconis" class="h-64 w-auto rounded-xl glow-box pulse">
         </div>
-        
-        <h1 class="font-rajdhani text-5xl md:text-7xl mb-6 neon-shadow">TÉCNICA <span class="text-draconis-neon">INFORMÁTICA</span></h1>
-        <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">Reparos e desbloqueios com <span class="text-draconis-neon">tecnologia de ponta</span> para seu console</p>
-        <a href="https://wa.me/555199908347" class="bg-transparent border-2 border-draconis-neon text-draconis-neon px-8 py-4 rounded-lg font-bold hover:bg-purple-900/30 hover:glow-box transition inline-block neon-shadow">
+        <h1 class="font-rajdhani text-6xl md:text-8xl mb-8 neon-shadow tracking-tight">
+            TÉCNICA <span class="text-draconis-neon">INFORMÁTICA</span>
+        </h1>
+        <p class="text-2xl md:text-3xl mb-12 max-w-3xl mx-auto leading-relaxed">Reparos e desbloqueios com <span class="text-draconis-neon font-bold">tecnologia de ponta</span> para seu console</p>
+        <a href="https://wa.me/555199908347" class="bg-gradient-to-r from-draconis-neon to-draconis text-white px-10 py-4 rounded-xl font-bold hover:bg-purple-900/50 hover:glow-box transition inline-block neon-shadow text-xl tracking-wide">
             ✆ WHATSAPP (51) 9990-8347
         </a>
-        <div class="mt-16">
-            <div class="inline-block h-1 w-24 bg-draconis-neon glow-box"></div>
+        <div class="mt-20">
+            <div class="inline-block h-1 w-32 bg-draconis-neon glow-box rounded-full"></div>
         </div>
     </section>
 
     <!-- Serviços -->
-    <section id="servicos" class="container mx-auto px-4 py-16">
-        <h2 class="font-rajdhani text-4xl mb-12 text-center neon-shadow">
+    <section id="servicos" class="container mx-auto px-6 py-20">
+        <h2 class="font-rajdhani text-5xl mb-16 text-center neon-shadow">
             <span class="text-draconis-neon">/</span> SERVIÇOS <span class="text-draconis-neon">/</span>
         </h2>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
-            <div class="bg-gray-900/50 p-6 rounded-lg border border-draconis-neon/30 glow-box hover:border-draconis-neon transition">
-                <h3 class="font-rajdhani text-2xl mb-4 text-draconis-neon">DESBLOQUEIOS</h3>
-                <ul class="space-y-3 font-oxanium">
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="bg-gray-900/70 p-8 rounded-xl border border-draconis-neon/40 glow-box hover:border-draconis-neon transition-all duration-300">
+                <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon">DESBLOQUEIOS</h3>
+                <ul class="space-y-4 font-oxanium text-lg">
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> PS2 (OPL + HD externo)
+                        <span class="text-draconis-neon mr-3">◉</span> PS2 (OPL + HD externo)
                     </li>
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> Xbox 360 (Aurora)
+                        <span class="text-draconis-neon mr-3">◉</span> Xbox 360 (Aurora)
                     </li>
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> PS3 (HEN/Custom FW)
+                        <span class="text-draconis-neon mr-3">◉</span> PS3 (HEN/Custom FW)
                     </li>
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> PS4/PS5 (Consultar)
+                        <span class="text-draconis-neon mr-3">◉</span> PS4/PS5 (Consultar)
                     </li>
                 </ul>
             </div>
-
-            <!-- Card 2 -->
-            <div class="bg-gray-900/50 p-6 rounded-lg border border-draconis-neon/30 glow-box hover:border-draconis-neon transition">
-                <h3 class="font-rajdhani text-2xl mb-4 text-draconis-neon">REPAROS</h3>
-                <ul class="space-y-3 font-oxanium">
+            <div class="bg-gray-900/70 p-8 rounded-xl border border-draconis-neon/40 glow-box hover:border-draconis-neon transition-all duration-300">
+                <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon">REPAROS</h3>
+                <ul class="space-y-4 font-oxanium text-lg">
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> Troca de thermal paste
+                        <span class="text-draconis-neon mr-3">◉</span> Troca de thermal paste
                     </li>
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> Conserto de placa-mãe
+                        <span class="text-draconis-neon mr-3">◉</span> Conserto de placa-mãe
                     </li>
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> Limpeza profunda
+                        <span class="text-draconis-neon mr-3">◉</span> Limpeza profunda
                     </li>
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> Recuperação de dados
+                        <span class="text-draconis-neon mr-3">◉</span> Recuperação de dados
                     </li>
                 </ul>
             </div>
-
-            <!-- Card 3 -->
-            <div class="bg-gray-900/50 p-6 rounded-lg border border-draconis-neon/30 glow-box hover:border-draconis-neon transition">
-                <h3 class="font-rajdhani text-2xl mb-4 text-draconis-neon">INFORMÁTICA</h3>
-                <ul class="space-y-3 font-oxanium">
+            <div class="bg-gray-900/70 p-8 rounded-xl border border-draconis-neon/40 glow-box hover:border-draconis-neon transition-all duration-300">
+                <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon">INFORMÁTICA</h3>
+                <ul class="space-y-4 font-oxanium text-lg">
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> Formatação de PCs
+                        <span class="text-draconis-neon mr-3">◉</span> Formatação de PCs
                     </li>
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> Upgrade de hardware
+                        <span class="text-draconis-neon mr-3">◉</span> Upgrade de hardware
                     </li>
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> Remoção de vírus
+                        <span class="text-draconis-neon mr-3">◉</span> Remoção de vírus
                     </li>
                     <li class="flex items-start">
-                        <span class="text-draconis-neon mr-2">◉</span> Instalação de SO
+                        <span class="text-draconis-neon mr-3">◉</span> Instalação de SO
                     </li>
                 </ul>
             </div>
         </div>
     </section>
 
+    <!-- Tabela de Preços -->
+    <section id="precos" class="container mx-auto px-6 py-20">
+        <h2 class="font-rajdhani text-5xl mb-16 text-center neon-shadow">
+            <span class="text-draconis-neon">/</span> TABELA DE PREÇOS <span class="text-draconis-neon">/</span>
+        </h2>
+
+        <!-- PS2 -->
+        <div id="precos-ps2" class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon">PlayStation 2</h3>
+            <table class="w-full text-left font-oxanium text-lg">
+                <thead>
+                    <tr class="table-header">
+                        <th class="px-6 py-4 rounded-tl-xl">Serviço</th>
+                        <th class="px-6 py-4 rounded-tr-xl">Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Passar jogos para HD até 100 jogos (320GB, até 35 jogos)</td>
+                        <td class="px-6 py-4">R$ 35,00</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Passar jogos para HD até 100 jogos (500GB, até 100 jogos)</td>
+                        <td class="px-6 py-4">R$ 80,00</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Desbloqueio OPL (Somente memory card)</td>
+                        <td class="px-6 py-4">R$ 80,00</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Desbloqueio OPL + Memory card e Pendrive 32GB + 5 jogos cortesia</td>
+                        <td class="px-6 py-4">R$ 150,00</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Desbloqueio Pacote OPL Memory Card HD Externo 160GB (100 jogos)</td>
+                        <td class="px-6 py-4">R$ 250,00</td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="px-6 py-4 rounded-bl-xl">Limpeza interna</td>
+                        <td class="px-6 py-4 rounded-br-xl">R$ 100,00</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="mt-4 text-sm text-purple-300/70">*Não passamos jogos para pendrives que não sejam da loja.</p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- PS3 -->
+        <div id="precos-ps3" class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon">PlayStation 3</h3>
+            <table class="w-full text-left font-oxanium text-lg">
+                <thead>
+                    <tr class="table-header">
+                        <th class="px-6 py-4 rounded-tl-xl">Serviço</th>
+                        <th class="px-6 py-4 rounded-tr-xl">Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Desbloqueio HEN + instalação de lojas para baixar jogos</td>
+                        <td class="px-6 py-4">R$ 100,00</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Desbloqueio HEN + HD 500GB</td>
+                        <td class="px-6 py-4">R$ 250,00</td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="px-6 py-4 rounded-bl-xl">Limpeza interna c/ troca de pasta térmica</td>
+                        <td class="px-6 py-4 rounded-br-xl">R$ 250,00</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="mt-4 text-sm text-purple-300/70">*Desbloqueio direto no console do cliente.</p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Xbox 360 -->
+        <div id="precos-xbox360" class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon">Xbox 360</h3>
+            <table class="w-full text-left font-oxanium text-lg">
+                <thead>
+                    <tr class="table-header">
+                        <th class="px-6 py-4 rounded-tl-xl">Serviço</th>
+                        <th class="px-6 py-4 rounded-tr-xl">Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Desbloqueio Draconis Aurora c/ Pendrive 32GB + 5 jogos cortesia</td>
+                        <td class="px-6 py-4">R$ 120,00</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Desbloqueio Draconis Aurora c/ Pendrive 16GB e HD 320GB + 25 jogos</td>
+                        <td class="px-6 py-4">R$ 199,00</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Desbloqueio Draconis Aurora c/ Pendrive 16GB e HD 500GB + 35 jogos</td>
+                        <td class="px-6 py-4">R$ 299,00</td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="px-6 py-4 rounded-bl-xl">Limpeza interna c/ troca de pasta térmica</td>
+                        <td class="px-6 py-4 rounded-br-xl">R$ 250,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- PS4 -->
+        <div id="precos-ps4" class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon">PlayStation 4</h3>
+            <table class="w-full text-left font-oxanium text-lg">
+                <thead>
+                    <tr class="table-header">
+                        <th class="px-6 py-4 rounded-tl-xl">Serviço</th>
+                        <th class="px-6 py-4 rounded-tr-xl">Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row">
+                        <td class="px-6 py-4 rounded-bl-xl">Limpeza interna c/ troca de pasta térmica</td>
+                        <td class="px-6 py-4 rounded-br-xl">R$ 450,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Xbox One -->
+        <div id="precos-xboxone" class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon">Xbox One</h3>
+            <table class="w-full text-left font-oxanium text-lg">
+                <thead>
+                    <tr class="table-header">
+                        <th class="px-6 py-4 rounded-tl-xl">Serviço</th>
+                        <th class="px-6 py-4 rounded-tr-xl">Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row">
+                        <td class="px-6 py-4 rounded-bl-xl">Limpeza interna c/ troca de pasta térmica</td>
+                        <td class="px-6 py-4 rounded-br-xl">R$ 450,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Computadores e Notebooks -->
+        <div id="precos-computadores" class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon">Computadores e Notebooks</h3>
+            <table class="w-full text-left font-oxanium text-lg">
+                <thead>
+                    <tr class="table-header">
+                        <th class="px-6 py-4 rounded-tl-xl">Serviço</th>
+                        <th class="px-6 py-4 rounded-tr-xl">Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Limpeza PC Gamer</td>
+                        <td class="px-6 py-4">R$ 250,00 a R$ 450,00 *</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Limpeza Notebook</td>
+                        <td class="px-6 py-4">R$ 250,00 a R$ 450,00 *</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Formatação com Windows</td>
+                        <td class="px-6 py-4">R$ 99,00 **</td>
+                    </tr>
+                    <tr class="table-row border-b border-draconis-neon/20">
+                        <td class="px-6 py-4">Formatação com Windows + Pacote Office</td>
+                        <td class="px-6 py-4">R$ 150,00 **</td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="px-6 py-4 rounded-bl-xl">Troca de tela/teclado/fonte</td>
+                        <td class="px-6 py-4 rounded-br-xl">Consultar orçamento gratuito</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="mt-4 text-sm text-purple-300/70">*Valor varia conforme o estado da máquina, o prazo pode variar.</p>
+            <p class="text-sm text-purple-300/70">**Entrega pode variar de 2 a 5 dias úteis.</p>
+        </div>
+    </section>
+
     <!-- Diferenciais -->
-    <section id="diferenciais" class="py-16 bg-gradient-to-b from-purple-900/10 to-transparent">
-        <div class="container mx-auto px-4">
-            <h2 class="font-rajdhani text-4xl mb-12 text-center neon-shadow">
+    <section id="diferenciais" class="py-20 bg-gradient-to-b from-purple-900/20 to-transparent">
+        <div class="container mx-auto px-6">
+            <h2 class="font-rajdhani text-5xl mb-16 text-center neon-shadow">
                 <span class="text-draconis-neon">/</span> POR QUE A DRACONIS? <span class="text-draconis-neon">/</span>
             </h2>
-            
-            <div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
-                <div class="flex items-start">
-                    <div class="text-draconis-neon mr-4 text-2xl">⚡</div>
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <div class="flex items-start p-4 rounded-lg hover:bg-gray-900/30 transition">
+                    <div class="text-draconis-neon mr-5 text-3xl">⚡</div>
                     <div>
-                        <h3 class="font-rajdhani text-xl mb-2 text-draconis-neon">Técnica Certificada</h3>
-                        <p class="font-oxanium">5+ anos de experiência em reparos e desbloqueios de consoles.</p>
+                        <h3 class="font-rajdhani text-2xl mb-3 text-draconis-neon">Técnica Certificada</h3>
+                        <p class="font-oxanium text-lg">5+ anos de experiência em reparos e desbloqueios de consoles.</p>
                     </div>
                 </div>
-                
-                <div class="flex items-start">
-                    <div class="text-draconis-neon mr-4 text-2xl">🛡️</div>
+                <div class="flex items-start p-4 rounded-lg hover:bg-gray-900/30 transition">
+                    <div class="text-draconis-neon mr-5 text-3xl">🛡️</div>
                     <div>
-                        <h3 class="font-rajdhani text-xl mb-2 text-draconis-neon">Garantia Real</h3>
-                        <p class="font-oxanium">90 dias de garantia em todos os serviços.</p>
+                        <h3 class="font-rajdhani text-2xl mb-3 text-draconis-neon">Garantia Real</h3>
+                        <p class="font-oxanium text-lg">90 dias de garantia em todos os serviços.</p>
                     </div>
                 </div>
-                
-                <div class="flex items-start">
-                    <div class="text-draconis-neon mr-4 text-2xl">🎮</div>
+                <div class="flex items-start p-4 rounded-lg hover:bg-gray-900/30 transition">
+                    <div class="text-draconis-neon mr-5 text-3xl">🎮</div>
                     <div>
-                        <h3 class="font-rajdhani text-xl mb-2 text-draconis-neon">Especialista em Games</h3>
-                        <p class="font-oxanium">Desde PS2 até PS5, conhecemos cada geração.</p>
+                        <h3 class="font-rajdhani text-2xl mb-3 text-draconis-neon">Especialista em Games</h3>
+                        <p class="font-oxanium text-lg">Desde PS2 até PS5, conhecemos cada geração.</p>
                     </div>
                 </div>
-                
-                <div class="flex items-start">
-                    <div class="text-draconis-neon mr-4 text-2xl">💼</div>
+                <div class="flex items-start p-4 rounded-lg hover:bg-gray-900/30 transition">
+                    <div class="text-draconis-neon mr-5 text-3xl">💼</div>
                     <div>
-                        <h3 class="font-rajdhani text-xl mb-2 text-draconis-neon">Orçamento Grátis</h3>
-                        <p class="font-oxanium">Diagnóstico sem custo e preços justos.</p>
+                        <h3 class="font-rajdhani text-2xl mb-3 text-draconis-neon">Orçamento Grátis</h3>
+                        <p class="font-oxanium text-lg">Diagnóstico sem custo e preços justos.</p>
                     </div>
                 </div>
             </div>
@@ -201,21 +444,21 @@
     </section>
 
     <!-- CTA Final -->
-    <section id="contato" class="container mx-auto px-4 py-20 text-center">
-        <h2 class="font-rajdhani text-5xl mb-6 neon-shadow">
+    <section id="contato" class="container mx-auto px-6 py-24 text-center">
+        <h2 class="font-rajdhani text-6xl md:text-7xl mb-8 neon-shadow">
             <span class="text-draconis-neon">LEVE SEU CONSOLE</span> AO PRÓXIMO NÍVEL
         </h2>
-        <p class="text-xl mb-10 max-w-2xl mx-auto font-oxanium">Tecnologia e paixão por games em um só lugar.</p>
-        <a href="https://wa.me/555199908347" class="bg-transparent border-2 border-draconis-neon text-draconis-neon px-8 py-4 rounded-lg font-bold hover:bg-purple-900/30 hover:glow-box transition inline-block neon-shadow font-rajdhani text-xl">
+        <p class="text-2xl mb-12 max-w-3xl mx-auto font-oxanium leading-relaxed">Tecnologia e paixão por games em um só lugar.</p>
+        <a href="https://wa.me/555199908347" class="bg-gradient-to-r from-draconis-neon to-draconis text-white px-10 py-4 rounded-xl font-bold hover:bg-purple-900/50 hover:glow-box transition inline-block neon-shadow font-rajdhani text-2xl tracking-wide">
             ✆ FALE COM A DRACONIS
         </a>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 text-center border-t border-draconis-neon/20">
-        <div class="container mx-auto px-4">
-            <p class="font-oxanium text-sm text-purple-300/70">© 2023 DRACONIS TÉCNICA INFORMÁTICA E GAMES • (51) 9990-8347</p>
-            <p class="mt-2 font-oxanium text-xs text-purple-400/50">Tecnologia com DNA gamer</p>
+    <footer class="py-10 text-center border-t border-draconis-neon/30 bg-gray-900/50">
+        <div class="container mx-auto px-6">
+            <p class="font-oxanium text-base text-purple-300/80">© 2023 DRACONIS TÉCNICA INFORMÁTICA E GAMES • (51) 9990-8347</p>
+            <p class="mt-3 font-oxanium text-sm text-purple-400/60">Tecnologia com DNA gamer</p>
         </div>
     </footer>
 
