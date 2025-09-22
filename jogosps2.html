@@ -525,52 +525,67 @@
         }
 
         // Copiar seleção para WhatsApp
-// Copiar seleção para WhatsApp
-function copyToWhatsApp() {
-    if (selectedGames.length === 0) return;
+        // Função para detectar se é dispositivo móvel
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
 
-    const message = `Olá, gostaria de solicitar o pacote de ${selectedPack} jogos para PS2 com os seguintes títulos:\n\n${selectedGames.join('\n')}`;
-    
-    // Função para mostrar o toast
-    const showToast = (text) => {
-        const toast = document.getElementById('toast');
-        toast.textContent = text;
-        toast.classList.add('show');
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3000);
-    };
+        // Abrir WhatsApp com a seleção
+        function openWhatsApp() {
+            if (selectedGames.length === 0) return;
+            
+            const message = `Olá, gostaria de solicitar o pacote de ${selectedPack} jogos para PS2 com os seguintes títulos:\n\n${selectedGames.join('\n')}`;
+            
+            // Copiar para a área de transferência
+            navigator.clipboard.writeText(message).then(() => {
+                // Mostrar toast de sucesso
+                const toast = document.getElementById('toast');
+                toast.textContent = "Seleção copiada para a área de transferência!";
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+                
+                // Abrir WhatsApp de forma compatível com mobile
+                const encodedMessage = encodeURIComponent(message);
+                const phoneNumber = "555199908347";
+                
+                if (isMobileDevice()) {
+                    // Para dispositivos móveis - usar intent do WhatsApp
+                    window.location.href = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+                    
+                    // Fallback caso o link direto não funcione
+                    setTimeout(() => {
+                        window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`, '_blank');
+                    }, 1000);
+                } else {
+                    // Para desktop - abrir em nova aba
+                    window.open(`https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`, '_blank');
+                }
+            }).catch(err => {
+                console.error('Falha ao copiar texto: ', err);
+                
+                // Fallback para navegadores mais antigos
+                const textArea = document.createElement('textarea');
+                textArea.value = message;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Abrir WhatsApp mesmo sem cópia bem-sucedida
+                const encodedMessage = encodeURIComponent(message);
+                const phoneNumber = "555199908347";
+                
+                if (isMobileDevice()) {
+                    window.location.href = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+                } else {
+                    window.open(`https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`, '_blank');
+                }
+            });
+        }
 
-    // Tentar copiar para a área de transferência
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(message).then(() => {
-            showToast("Seleção copiada para a área de transferência!");
-            // Redirecionar para o WhatsApp
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = `https://wa.me/555199908347?text=${encodedMessage}`;
-            setTimeout(() => {
-                window.location.href = whatsappURL; // Usar location.href em vez de window.open
-            }, 500); // Pequeno atraso para garantir que o toast seja visível
-        }).catch(err => {
-            console.error('Falha ao copiar texto: ', err);
-            showToast('Não foi possível copiar a seleção. Redirecionando para o WhatsApp...');
-            // Redirecionar para o WhatsApp mesmo se a cópia falhar
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = `https://wa.me/555199908347?text=${encodedMessage}`;
-            setTimeout(() => {
-                window.location.href = whatsappURL;
-            }, 500);
-        });
-    } else {
-        // Fallback para navegadores que não suportam navigator.clipboard
-        showToast('Cópia não suportada. Redirecionando para o WhatsApp...');
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappURL = `https://wa.me/555199908347?text=${encodedMessage}`;
-        setTimeout(() => {
-            window.location.href = whatsappURL;
-        }, 500);
-    }
-}
     </script>
 </body>
 </html>
