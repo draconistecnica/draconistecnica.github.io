@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draconis | Seleção de Jogos PS2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-oxanium { font-family: 'Oxanium', sans-serif; }
+        .bg-draconis {
+            background: linear-gradient(135deg, #0f0b1a 0%, #1a0933 70%, #2a1b4a 100%);
+        }
+        .text-draconis-neon { color: #ff00aa; }
+        .neon-shadow {
+            text-shadow: 0 0 10px #ff00aa, 0 0 20px #e94560, 0 0 30px rgba(255, 0, 170, 0.5);
+        }
+        .glow-box {
+            box-shadow: 0 0 20px rgba(255, 0, 170, 0.7), 0 0 40px rgba(233, 69, 96, 0.3);
+        }
+        .game-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .game-checkbox:hover {
+            background-color: rgba(255, 0, 170, 0.1);
+        }
+        .game-checkbox input[type="checkbox"] {
+            accent-color: #ff00aa;
+        }
+        .game-checkbox label {
+            color: #e94560;
+            font-size: 0.9rem;
+            cursor: pointer;
+            flex-grow: 1;
+        }
+        .game-checkbox input[type="checkbox"]:disabled + label {
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+        .copy-btn {
+            background: linear-gradient(90deg, #ff00aa, #e94560);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .copy-btn:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 170, 0.9);
+            transform: translateY(-2px);
+        }
+        .copy-btn:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        .search-box {
+            background: rgba(15, 11, 26, 0.7);
+            border: 1px solid #ff00aa;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            width: 100%;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 0, 170, 0.7);
+        }
+        .game-list-container {
+            max-height: 400px;
+            overflow-y: auto;
+            background: rgba(15, 11, 26, 0.5);
+            border-radius: 8px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ff00aa;
+        }
+        .alphabet-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .alphabet-btn {
+            background: rgba(15, 11, 26, 0.7);
+            border: 1px solid #ff00aa;
+            color: #e94560;
+            padding: 0.4rem 0.7rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .alphabet-btn:hover, .alphabet-btn.active {
+            background: rgba(255, 0, 170, 0.2);
+            color: white;
+        }
+        .category-filter {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .category-btn {
+            background: rgba(15, 11, 26, 0.7);
+            border: 1px solid #ff00aa;
+            color: #e94560;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(90deg, #ff00aa, #e94560);
+            color: white;
+        }
+        .pack-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(15, 11, 26, 0.7);
+            border-radius: 8px;
+            border: 1px solid #ff00aa;
+        }
+        .pack-option input[type="radio"] {
+            accent-color: #ff00aa;
+        }
+        .pack-option label {
+            color: #e94560;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .selection-info {
+            background: rgba(255, 0, 170, 0.1);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #ff00aa;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 0, 170, 0.9);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-draconis text-gray-100 font-oxanium min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-gray-900/80 rounded-xl border border-draconis-neon/40 glow-box p-6">
+        <h2 class="text-3xl mb-6 text-center neon-shadow text-draconis-neon">
+            Seleção de Jogos PS2
+        </h2>
+        
+        <!-- Sistema de Seleção de Jogos -->
+        <div class="game-selection-container">
+            <div class="selection-info">
+                <div class="selected-count text-draconis-neon font-bold text-center" id="selected-count">0 jogos selecionados (máximo: 5)</div>
+            </div>
+            
+            <div class="pack-options flex gap-4 mb-4 justify-center">
+                <div class="pack-option">
+                    <input type="radio" id="pack-5" name="game-pack" value="5" checked>
+                    <label for="pack-5">Pacote de 5 jogos</label>
+                </div>
+                <div class="pack-option">
+                    <input type="radio" id="pack-15" name="game-pack" value="15">
+                    <label for="pack-15">Pacote de 15 jogos</label>
+                </div>
+            </div>
+            
+            <!-- Barra de pesquisa -->
+            <input type="text" id="game-search" class="search-box" placeholder="Pesquisar jogos...">
+            
+            <!-- Navegação por letra -->
+            <div class="alphabet-nav">
+                <button class="alphabet-btn active" data-letter="ALL">TODOS</button>
+                <button class="alphabet-btn" data-letter="A">A</button>
+                <button class="alphabet-btn" data-letter="B">B</button>
+                <button class="alphabet-btn" data-letter="C">C</button>
+                <button class="alphabet-btn" data-letter="D">D</button>
+                <button class="alphabet-btn" data-letter="E">E</button>
+                <button class="alphabet-btn" data-letter="F">F</button>
+                <button class="alphabet-btn" data-letter="G">G</button>
+                <button class="alphabet-btn" data-letter="H">H</button>
+                <button class="alphabet-btn" data-letter="I">I</button>
+                <button class="alphabet-btn" data-letter="J">J</button>
+                <button class="alphabet-btn" data-letter="K">K</button>
+                <button class="alphabet-btn" data-letter="L">L</button>
+                <button class="alphabet-btn" data-letter="M">M</button>
+                <button class="alphabet-btn" data-letter="N">N</button>
+                <button class="alphabet-btn" data-letter="O">O</button>
+                <button class="alphabet-btn" data-letter="P">P</button>
+                <button class="alphabet-btn" data-letter="Q">Q</button>
+                <button class="alphabet-btn" data-letter="R">R</button>
+                <button class="alphabet-btn" data-letter="S">S</button>
+                <button class="alphabet-btn" data-letter="T">T</button>
+                <button class="alphabet-btn" data-letter="U">U</button>
+                <button class="alphabet-btn" data-letter="V">V</button>
+                <button class="alphabet-btn" data-letter="W">W</button>
+                <button class="alphabet-btn" data-letter="X">X</button>
+                <button class="alphabet-btn" data-letter="Y">Y</button>
+                <button class="alphabet-btn" data-letter="Z">Z</button>
+            </div>
+            
+            <!-- Filtros por categoria -->
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">Todos</button>
+                <button class="category-btn" data-category="ptbr">Traduzidos</button>
+                <button class="category-btn" data-category="action">Ação</button>
+                <button class="category-btn" data-category="rpg">RPG</button>
+                <button class="category-btn" data-category="sports">Esportes</button>
+                <button class="category-btn" data-category="adventure">Aventura</button>
+                <button class="category-btn" data-category="racing">Corrida</button>
+            </div>
+            
+            <!-- Lista de jogos (será preenchida via JavaScript) -->
+            <div class="game-list-container" id="game-list">
+                <div class="text-center py-4 text-draconis-neon">Carregando jogos...</div>
+            </div>
+            
+            <div class="selection-controls flex justify-between items-center mt-4">
+                <div class="selected-count text-draconis-neon font-bold" id="selected-count-display">0 jogos selecionados</div>
+                <button class="copy-btn" id="copy-to-whatsapp" disabled>Copiar seleção para WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Seleção copiada para a área de transferência!</div>
+
+    <script>
+        // Lista de jogos PS2 (agora com categorias para filtro)
+        const ps2Games = [
+            { name: "007 - Everything or Nothing (USA)", category: "action" },
+            { name: "007 - Nightfire (USA)", category: "action" },
+            { name: "Ace Combat 04 - Shattered Skies (USA)", category: "action" },
+            { name: "Ace Combat 5 - The Unsung War (USA) (En,Ja)", category: "action" },
+            { name: "Ace Combat Zero - The Belkan War (USA)", category: "action" },
+            { name: "Alone in the Dark (USA)", category: "adventure" },
+            { name: "Baldur's Gate - Dark Alliance (USA)", category: "rpg" },
+            { name: "Batman Begins (USA)", category: "action" },
+            { name: "Battlefield 2 - Modern Combat (USA)", category: "action" },
+            { name: "Beyond Good & Evil (USA) (En,Fr,Es)", category: "adventure" },
+            { name: "Black (USA)", category: "action" },
+            { name: "Brothers in Arms - Earned in Blood (USA)", category: "action" },
+            { name: "Brothers in Arms - Road to Hill 30 (USA)", category: "action" },
+            { name: "Bully (USA)", category: "action" },
+            { name: "Burnout (USA)", category: "racing" },
+            { name: "Burnout 2 - Point of Impact (USA)", category: "racing" },
+            { name: "Burnout 3 - Takedown (USA)", category: "racing" },
+            { name: "Burnout Dominator (USA)", category: "racing" },
+            { name: "Burnout Revenge (USA)", category: "racing" },
+            { name: "Call of Duty - Finest Hour (USA)", category: "action" },
+            { name: "Call of Duty 2 - Big Red One - Collector's Edition (USA)", category: "action" },
+            { name: "Call of Duty 3 (USA)", category: "action" },
+            { name: "Capcom Classics Collection Vol. 2 (USA)", category: "action" },
+            { name: "Champions of Norrath (USA)", category: "rpg" },
+            { name: "Chaos Legion (USA) (En,Ja,Fr,Es)", category: "action" },
+            { name: "Chronicles of Narnia, The - Prince Caspian (USA)", category: "adventure" },
+            { name: "Chronicles of Narnia, The - The Lion, the Witch and the Wardrobe (USA)", category: "adventure" },
+            { name: "Crash - Mind Over Mutant (USA)", category: "adventure" },
+            { name: "Crash Bandicoot - The Wrath of Cortex (USA)", category: "adventure" },
+            { name: "Crash Nitro Kart (USA)", category: "racing" },
+            { name: "Crash of the Titans (USA)", category: "action" },
+            { name: "Crash Tag Team Racing (USA)", category: "racing" },
+            { name: "Crash Twinsanity (USA)", category: "adventure" },
+            { name: "Dark Cloud 2 (USA) (v2.00)", category: "rpg" },
+            { name: "Deus Ex - The Conspiracy (USA)", category: "action" },
+            { name: "Devil May Cry (USA)", category: "action" },
+            { name: "Digimon Rumble Arena 2 (USA)", category: "action" },
+            { name: "Digimon World - Data Squad (USA)", category: "rpg" },
+            { name: "Digimon World 4 (USA)", category: "rpg" },
+            { name: "Dirge of Cerberus - Final Fantasy VII (USA)", category: "rpg" },
+            { name: "Dot Hack G.U. Vol. 1 - Rebirth (USA)", category: "rpg" },
+            { name: "Dot Hack G.U. Vol. 2 - Reminisce (USA)", category: "rpg" },
+            { name: "Dot Hack G.U. Vol. 3 - Redemption (USA)", category: "rpg" },
+            { name: "Dragon Ball Z - Budokai (USA)", category: "action" },
+            { name: "Dragon Ball Z - Budokai 2 (USA)", category: "action" },
+            { name: "Dragon Ball Z - Budokai 3 (USA)", category: "action" },
+            { name: "Dragon Ball Z - Budokai Tenkaichi (USA)", category: "action" },
+            { name: "Dragon Ball Z - Budokai Tenkaichi 2 (USA) (En,Ja)", category: "action" },
+            { name: "Dragon Ball Z - Budokai Tenkaichi 3 (USA) (En,Ja)", category: "action" },
+            { name: "Dragon Quest VIII - Journey of the Cursed King (USA)", category: "rpg" },
+            { name: "Driv3r (USA) (En,Fr,Es)", category: "racing" },
+            { name: "Driver - Parallel Lines (Europe) (En,Fr,De)", category: "racing" },
+            { name: "Dynasty Warriors 5 (USA)", category: "action" },
+            { name: "FIFA Street (USA)", category: "sports" },
+            { name: "FIFA Street 2 (USA)", category: "sports" },
+            { name: "Fight Night Round 3 (USA)", category: "sports" },
+            { name: "Final Fantasy X (USA)", category: "rpg" },
+            { name: "Final Fantasy X-2 (USA)", category: "rpg" },
+            { name: "Final Fantasy XII (USA)", category: "rpg" },
+            { name: "God of War (USA)", category: "action" },
+            { name: "God of War II (USA)", category: "action" },
+            { name: "Gran Turismo 3 - A-spec (USA) (v1.10)", category: "racing" },
+            { name: "Gran Turismo 4 (USA)", category: "racing" },
+            { name: "Grand Theft Auto - San Andreas (USA) (v3.00)", category: "action" },
+            { name: "Grand Theft Auto - Vice City (USA) (v3.00)", category: "action" },
+            { name: "Grand Theft Auto III (USA)", category: "action" },
+            { name: "Guitar Hero (USA)", category: "action" },
+            { name: "Guitar Hero II (USA)", category: "action" },
+            { name: "Guitar Hero III - Legends of Rock (USA)", category: "action" },
+            { name: "Jak and Daxter - The Precursor Legacy (USA) (En,Fr,De,Es,It)", category: "adventure" },
+            { name: "Jak II (USA) (En,Ja,Fr,De,Es,It,Ko) (v2.01)", category: "adventure" },
+            { name: "Jak 3 (USA) (En,Fr,De,Es,It,Pt,Ru)", category: "adventure" },
+            { name: "Kingdom Hearts (USA)", category: "rpg" },
+            { name: "Kingdom Hearts - Re-Chain of Memories (USA)", category: "rpg" },
+            { name: "Madden NFL 2005 (USA)", category: "sports" },
+            { name: "Metal Gear Solid 2 - Substance (USA)", category: "action" },
+            { name: "Metal Gear Solid 3 - Snake Eater (USA)", category: "action" },
+            { name: "MVP Baseball 2005 (USA)", category: "sports" },
+            { name: "NBA Street Vol. 2 (USA)", category: "sports" },
+            { name: "NBA Street V3 (USA)", category: "sports" },
+            { name: "Need for Speed - Most Wanted - Black Edition (USA)", category: "racing" },
+            { name: "Need for Speed - Underground (USA)", category: "racing" },
+            { name: "Need for Speed - Underground 2 (USA)", category: "racing" },
+            { name: "Prince of Persia - The Sands of Time (USA) (En,Fr,Es)", category: "adventure" },
+            { name: "Prince of Persia - Warrior Within (USA) (En,Fr,Es)", category: "adventure" },
+            { name: "Ratchet & Clank (USA) (En,Fr,De,Es,It)", category: "action" },
+            { name: "Ratchet & Clank - Going Commando (USA)", category: "action" },
+            { name: "Ratchet & Clank - Up Your Arsenal (USA) (En,Fr,Es)", category: "action" },
+            { name: "Ratchet - Deadlocked (USA) (En,Fr,Es)", category: "action" },
+            { name: "Resident Evil 4 (USA)", category: "action" },
+            { name: "Shadow of the Colossus (USA)", category: "adventure" },
+            { name: "Silent Hill 2 (USA) (En,Ja)", category: "adventure" },
+            { name: "Silent Hill 3 (USA)", category: "adventure" },
+            { name: "Sly Cooper and the Thievius Raccoonus (USA)", category: "adventure" },
+            { name: "Sly 2 - Band of Thieves (USA)", category: "adventure" },
+            { name: "Sly 3 - Honor Among Thieves (USA)", category: "adventure" },
+            { name: "SOCOM - U.S. Navy SEALs (USA)", category: "action" },
+            { name: "SOCOM II - U.S. Navy SEALs (USA)", category: "action" },
+            { name: "SoulCalibur II (USA)", category: "action" },
+            { name: "SoulCalibur III (USA)", category: "action" },
+            { name: "Spider-Man 2 (USA)", category: "action" },
+            { name: "Star Wars - Battlefront (USA)", category: "action" },
+            { name: "Star Wars - Battlefront II (USA)", category: "action" },
+            { name: "Tekken 4 (USA)", category: "action" },
+            { name: "Tekken 5 (USA)", category: "action" },
+            { name: "Tekken Tag Tournament (USA)", category: "action" },
+            { name: "Tomb Raider - Legend (USA)", category: "adventure" },
+            { name: "Tony Hawk's Pro Skater 3 (USA)", category: "sports" },
+            { name: "Tony Hawk's Pro Skater 4 (USA)", category: "sports" },
+            { name: "Tony Hawk's Underground (USA)", category: "sports" },
+            { name: "Tony Hawk's Underground 2 (USA)", category: "sports" },
+            { name: "Ultimate Spider-Man (USA)", category: "action" },
+            { name: "WWE SmackDown! vs. Raw (USA)", category: "sports" },
+            { name: "WWE SmackDown! vs. Raw 2006 (USA)", category: "sports" },
+            { name: "X-Men Legends (USA)", category: "action" },
+            { name: "GTA San Andreas", category: "ptbr" },
+            { name: "Bomba Patch 2025", category: "ptbr" },
+            { name: "God of War Dublado e legendado", category: "ptbr" },
+            { name: "God of War 2 legendado", category: "ptbr" },
+            { name: "Need For Speed Underground 2", category: "ptbr" },
+            { name: "Need for speed Most Wanted", category: "ptbr" }
+        ];
+
+        // Variáveis globais
+        let selectedPack = 5;
+        let selectedGames = [];
+        let currentFilter = "all";
+        let currentLetter = "ALL";
+        let searchTerm = "";
+
+        // Inicialização quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGameSelection();
+            setupEventListeners();
+            renderGames();
+        });
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Pack selection
+            document.querySelectorAll('input[name="game-pack"]').forEach(option => {
+                option.addEventListener('change', function() {
+                    selectedPack = parseInt(this.value);
+                    updateSelectionUI();
+                    renderGames();
+                });
+            });
+
+            // Search box
+            document.getElementById('game-search').addEventListener('input', function(e) {
+                searchTerm = e.target.value.toLowerCase();
+                renderGames();
+            });
+
+            // Alphabet navigation
+            document.querySelectorAll('.alphabet-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.alphabet-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentLetter = this.getAttribute('data-letter');
+                    renderGames();
+                });
+            });
+
+            // Category filter
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.getAttribute('data-category');
+                    renderGames();
+                });
+            });
+
+            // Copy to WhatsApp button
+            document.getElementById('copy-to-whatsapp').addEventListener('click', copyToWhatsApp);
+        }
+
+        // Inicializar sistema de seleção de jogos
+        function initializeGameSelection() {
+            updateSelectionUI();
+        }
+
+        // Filtrar jogos com base nos critérios atuais
+        function filterGames() {
+            return ps2Games.filter(game => {
+                // Filtrar por categoria
+                if (currentFilter !== "all" && game.category !== currentFilter) {
+                    return false;
+                }
+                
+                // Filtrar por letra
+                if (currentLetter !== "ALL") {
+                    const firstLetter = game.name.charAt(0).toUpperCase();
+                    if (firstLetter !== currentLetter) {
+                        return false;
+                    }
+                }
+                
+                // Filtrar por termo de pesquisa
+                if (searchTerm && !game.name.toLowerCase().includes(searchTerm)) {
+                    return false;
+                }
+                
+                return true;
+            });
+        }
+
+        // Renderizar lista de jogos
+        function renderGames() {
+            const gameList = document.getElementById('game-list');
+            const filteredGames = filterGames();
+            
+            if (filteredGames.length === 0) {
+                gameList.innerHTML = '<div class="text-center py-4 text-draconis-neon">Nenhum jogo encontrado</div>';
+                return;
+            }
+            
+            let html = '';
+            filteredGames.forEach((game, index) => {
+                const isChecked = selectedGames.includes(game.name);
+                const isDisabled = selectedGames.length >= selectedPack && !isChecked;
+                
+                html += `
+                    <div class="game-checkbox">
+                        <input type="checkbox" id="game-${index}" value="${game.name}" 
+                            ${isChecked ? 'checked' : ''} ${isDisabled ? 'disabled' : ''}>
+                        <label for="game-${index}">${game.name}</label>
+                    </div>
+                `;
+            });
+            
+            gameList.innerHTML = html;
+            
+            // Adicionar event listeners aos checkboxes
+            gameList.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const gameName = this.value;
+                    
+                    if (this.checked) {
+                        // Adicionar jogo à seleção se não exceder o limite
+                        if (selectedGames.length < selectedPack) {
+                            selectedGames.push(gameName);
+                        } else {
+                            this.checked = false; // Desmarcar se exceder o limite
+                        }
+                    } else {
+                        // Remover jogo da seleção
+                        selectedGames = selectedGames.filter(name => name !== gameName);
+                    }
+                    
+                    updateSelectionUI();
+                    renderGames(); // Re-renderizar para atualizar estados
+                });
+            });
+        }
+
+        // Atualizar UI de seleção
+        function updateSelectionUI() {
+            // Atualizar contador
+            document.getElementById('selected-count').textContent = 
+                `${selectedGames.length} jogos selecionados (máximo: ${selectedPack})`;
+            document.getElementById('selected-count-display').textContent = 
+                `${selectedGames.length} de ${selectedPack} jogos selecionados`;
+            
+            // Habilitar/desabilitar botão
+            document.getElementById('copy-to-whatsapp').disabled = selectedGames.length === 0;
+        }
+
+        // Copiar seleção para WhatsApp
+        function copyToWhatsApp() {
+            if (selectedGames.length === 0) return;
+            
+            const message = `Olá, gostaria de solicitar o pacote de ${selectedPack} jogos para PS2 com os seguintes títulos:\n\n${selectedGames.join('\n')}`;
+            
+            // Copiar para a área de transferência
+            navigator.clipboard.writeText(message).then(() => {
+                // Mostrar toast de sucesso
+                const toast = document.getElementById('toast');
+                toast.textContent = "Seleção copiada para a área de transferência!";
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+                
+                // Abrir WhatsApp
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappURL = `https://wa.me/5551999930495?text=${encodedMessage}`;
+                window.open(whatsappURL, '_blank');
+            }).catch(err => {
+                console.error('Falha ao copiar texto: ', err);
+                alert('Não foi possível copiar a seleção. Por favor, tente novamente.');
+            });
+        }
+    </script>
+</body>
+</html>
