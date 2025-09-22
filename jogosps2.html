@@ -525,31 +525,52 @@
         }
 
         // Copiar seleção para WhatsApp
-        function copyToWhatsApp() {
-            if (selectedGames.length === 0) return;
-            
-            const message = `Olá, gostaria de solicitar o pacote de ${selectedPack} jogos para PS2 com os seguintes títulos:\n\n${selectedGames.join('\n')}`;
-            
-            // Copiar para a área de transferência
-            navigator.clipboard.writeText(message).then(() => {
-                // Mostrar toast de sucesso
-                const toast = document.getElementById('toast');
-                toast.textContent = "Seleção copiada para a área de transferência!";
-                toast.classList.add('show');
-                
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
-                
-                // Abrir WhatsApp
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappURL = `https://wa.me/5551999930495?text=${encodedMessage}`;
-                window.open(whatsappURL, '_blank');
-            }).catch(err => {
-                console.error('Falha ao copiar texto: ', err);
-                alert('Não foi possível copiar a seleção. Por favor, tente novamente.');
-            });
-        }
+// Copiar seleção para WhatsApp
+function copyToWhatsApp() {
+    if (selectedGames.length === 0) return;
+
+    const message = `Olá, gostaria de solicitar o pacote de ${selectedPack} jogos para PS2 com os seguintes títulos:\n\n${selectedGames.join('\n')}`;
+    
+    // Função para mostrar o toast
+    const showToast = (text) => {
+        const toast = document.getElementById('toast');
+        toast.textContent = text;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    };
+
+    // Tentar copiar para a área de transferência
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(message).then(() => {
+            showToast("Seleção copiada para a área de transferência!");
+            // Redirecionar para o WhatsApp
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/555199908347?text=${encodedMessage}`;
+            setTimeout(() => {
+                window.location.href = whatsappURL; // Usar location.href em vez de window.open
+            }, 500); // Pequeno atraso para garantir que o toast seja visível
+        }).catch(err => {
+            console.error('Falha ao copiar texto: ', err);
+            showToast('Não foi possível copiar a seleção. Redirecionando para o WhatsApp...');
+            // Redirecionar para o WhatsApp mesmo se a cópia falhar
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/555199908347?text=${encodedMessage}`;
+            setTimeout(() => {
+                window.location.href = whatsappURL;
+            }, 500);
+        });
+    } else {
+        // Fallback para navegadores que não suportam navigator.clipboard
+        showToast('Cópia não suportada. Redirecionando para o WhatsApp...');
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappURL = `https://wa.me/555199908347?text=${encodedMessage}`;
+        setTimeout(() => {
+            window.location.href = whatsappURL;
+        }, 500);
+    }
+}
     </script>
 </body>
 </html>
