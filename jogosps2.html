@@ -230,7 +230,6 @@
             <!-- Filtros por categoria -->
             <div class="category-filter">
                 <button class="category-btn active" data-category="all">Todos</button>
-                <button class="category-btn" data-category="ptbr">Traduzidos</button>
                 <button class="category-btn" data-category="action">Ação</button>
                 <button class="category-btn" data-category="rpg">RPG</button>
                 <button class="category-btn" data-category="sports">Esportes</button>
@@ -245,7 +244,7 @@
             
             <div class="selection-controls flex justify-between items-center mt-4">
                 <div class="selected-count text-draconis-neon font-bold" id="selected-count-display">0 jogos selecionados</div>
-                <button class="copy-btn" id="copy-to-whatsapp" disabled>Copiar seleção para WhatsApp</button>
+                <button class="copy-btn" id="copy-to-whatsapp" disabled>Abrir WhatsApp com seleção</button>
             </div>
         </div>
     </div>
@@ -370,12 +369,7 @@
             { name: "WWE SmackDown! vs. Raw (USA)", category: "sports" },
             { name: "WWE SmackDown! vs. Raw 2006 (USA)", category: "sports" },
             { name: "X-Men Legends (USA)", category: "action" },
-            { name: "GTA San Andreas", category: "ptbr" },
-            { name: "Bomba Patch 2025", category: "ptbr" },
-            { name: "God of War Dublado e legendado", category: "ptbr" },
-            { name: "God of War 2 legendado", category: "ptbr" },
-            { name: "Need For Speed Underground 2", category: "ptbr" },
-            { name: "Need for speed Most Wanted", category: "ptbr" }
+            { name: "X-Men Legends II - Rise of Apocalypse (USA)", category: "action" }
         ];
 
         // Variáveis globais
@@ -430,7 +424,7 @@
             });
 
             // Copy to WhatsApp button
-            document.getElementById('copy-to-whatsapp').addEventListener('click', copyToWhatsApp);
+            document.getElementById('copy-to-whatsapp').addEventListener('click', openWhatsApp);
         }
 
         // Inicializar sistema de seleção de jogos
@@ -524,7 +518,6 @@
             document.getElementById('copy-to-whatsapp').disabled = selectedGames.length === 0;
         }
 
-        // Copiar seleção para WhatsApp
         // Função para detectar se é dispositivo móvel
         function isMobileDevice() {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -585,7 +578,6 @@
                 }
             });
         }
-
     </script>
 </body>
 </html>
