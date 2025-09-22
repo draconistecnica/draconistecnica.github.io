@@ -53,6 +53,10 @@
             transition: all 0.3s ease;
             font-size: 1rem;
         }
+        .copy-btn * {
+            pointer-events: none; /* Impede que elementos filhos interceptem o clique */
+        }
+
         .copy-btn:hover {
             box-shadow: 0 0 15px rgba(255, 0, 170, 0.9);
             transform: translateY(-2px);
@@ -244,7 +248,7 @@
             
             <div class="selection-controls flex justify-between items-center mt-4">
                 <div class="selected-count text-draconis-neon font-bold" id="selected-count-display">0 jogos selecionados</div>
-                <button class="copy-btn" id="copy-to-whatsapp" disabled>Selecionar</button>
+                <button class="copy-btn" id="copy-to-whatsapp" disabled><span>Selecionar</span></button>
             </div>
         </div>
     </div>
