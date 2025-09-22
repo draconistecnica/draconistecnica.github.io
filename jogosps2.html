@@ -518,71 +518,110 @@
             document.getElementById('copy-to-whatsapp').disabled = selectedGames.length === 0;
         }
 
-        // Função para detectar se é dispositivo móvel
-        function isMobileDevice() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        }
+// Função para detectar se é dispositivo móvel (otimizada)
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
 
-// Substitua a função openWhatsApp existente por esta versão
-async function openWhatsApp() {
-    if (selectedGames.length === 0) return;
+// Função para mostrar toast
+function showToast(text) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    
+    toast.textContent = text;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2000);
+}
 
-    const message = `Olá, gostaria de solicitar o pacote de ${selectedPack} jogos para PS2 com os seguintes títulos:\n\n${selectedGames.join('\n')}`;
-    const phone = "+5551999930495";
-    const encodedMessage = encodeURIComponent(message);
-
-    const waAppUrl = `whatsapp://send?phone=${phone}&text=${encodedMessage}`; // esquema direto (às vezes bloqueado)
-    // wa.me (recomendado) - remove o '+' do telefone
-    const waMePhone = phone.replace(/\D/g, ''); // deixa só números
-    const waMeUrl = `https://wa.me/${waMePhone}?text=${encodedMessage}`;
-    const waWebUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
-
-    const showToast = (text) => {
-        const toast = document.getElementById('toast');
-        toast.textContent = text;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-    };
-
-    // Tenta copiar pro clipboard mas NÃO bloqueia o fluxo se falhar
+// Função assíncrona para copiar texto
+async function copyToClipboard(text) {
     try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(message);
-            showToast("Seleção copiada para a área de transferência!");
+            await navigator.clipboard.writeText(text);
+            return true;
+        } else {
+            // Fallback para navegadores antigos
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            const success = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            return success;
         }
     } catch (err) {
-        // Falha ao copiar: apenas log e segue em frente
-        console.warn('Não foi possível copiar para o clipboard:', err);
+        console.error('Erro ao copiar:', err);
+        return false;
+    }
+}
+
+// Função principal assíncrona para abrir WhatsApp
+async function openWhatsApp() {
+    if (selectedGames.length === 0) {
+        showToast("Selecione pelo menos um jogo!");
+        return;
     }
 
-    // Se o navegador tem a Web Share API, podemos oferecer essa alternativa no mobile
-    if (isMobileDevice() && navigator.share) {
-        try {
-            await navigator.share({ text: message });
-            // O usuário abriu o share nativo, não precisamos redirecionar para o WhatsApp
-            return;
-        } catch (err) {
-            // usuário pode ter cancelado; seguir para abrir o WhatsApp
-            console.warn('navigator.share falhou ou foi cancelado:', err);
+    const message = `Olá, gostaria de solicitar o pacote de ${selectedPack} jogos para PS2 com os seguintes títulos:\n\n${selectedGames.join('\n')}`;
+    const phoneNumber = "+5551999930495";
+    const encodedMessage = encodeURIComponent(message);
+    const isMobile = isMobileDevice();
+
+    try {
+        // Tenta copiar para área de transferência
+        const copySuccess = await copyToClipboard(message);
+        
+        if (copySuccess) {
+            showToast("Seleção copiada com sucesso!");
+        } else {
+            showToast("Redirecionando para o WhatsApp...");
         }
-    }
 
-    // Abrir o WhatsApp (mobile: usar wa.me ou api.whatsapp; desktop: web.whatsapp)
-    if (isMobileDevice()) {
-        // usar wa.me primeiro — funciona bem em Android/iOS e redireciona pro app quando instalado
-        window.location.href = waMeUrl;
-        // como fallback (caso o navegador bloqueie scheme), tentar depois abrir a URL api.whatsapp
-        setTimeout(() => {
-            // tentar fallback web se o usuário ainda estiver na página
-            try {
-                window.location.href = waWebUrl;
-            } catch (e) {
-                console.error('fallback falhou', e);
-            }
-        }, 1200); // pequeno atraso para permitir o redirect ao app
-    } else {
-        // desktop: abrir web.whatsapp em nova aba
-        window.open(`https://web.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`, '_blank');
+        // Aguarda um breve momento para o toast ser exibido
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Prepara as URLs
+        let targetURL;
+        
+        if (isMobile) {
+            // Para mobile: tenta app nativo primeiro, depois fallback para web
+            const whatsappURL = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+            const fallbackURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Tenta abrir o app nativo
+            window.location.href = whatsappURL;
+            
+            // Fallback após 2 segundos se ainda estiver na mesma página
+            setTimeout(() => {
+                if (!document.hidden && document.visibilityState === 'visible') {
+                    window.location.href = fallbackURL;
+                }
+            }, 2000);
+            
+        } else {
+            // Para desktop: abre diretamente na web
+            targetURL = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+            window.open(targetURL, '_blank', 'noopener,noreferrer');
+        }
+
+    } catch (error) {
+        console.error('Erro no processo:', error);
+        showToast("Erro ao processar. Tente novamente.");
+        
+        // Fallback final em caso de erro
+        const fallbackURL = isMobile ? 
+            `https://wa.me/${phoneNumber}?text=${encodedMessage}` :
+            `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+            
+        if (isMobile) {
+            window.location.href = fallbackURL;
+        } else {
+            window.open(fallbackURL, '_blank', 'noopener,noreferrer');
+        }
     }
 }
     </script>
