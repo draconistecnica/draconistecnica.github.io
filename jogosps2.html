@@ -248,7 +248,7 @@
             
             <div class="selection-controls flex justify-between items-center mt-4">
                 <div class="selected-count text-draconis-neon font-bold" id="selected-count-display">0 jogos selecionados</div>
-                <button class="copy-btn" id="copy-to-whatsapp" disabled><span>Selecionar</span></button>
+                <button class="copy-btn" id="copy-to-whatsapp" disabled><span id="copy-to-whatsappSpan">Selecionar</span></button>
             </div>
         </div>
     </div>
@@ -429,6 +429,7 @@
 
             // Copy to WhatsApp button
             document.getElementById('copy-to-whatsapp').addEventListener('click', openWhatsApp);
+            document.getElementById('copy-to-whatsappSpan').addEventListener('click', openWhatsApp);
         }
 
         // Inicializar sistema de seleção de jogos
