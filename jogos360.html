@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draconis | Seleção de Jogos Xbox 360</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-oxanium { font-family: 'Oxanium', sans-serif; }
+        .bg-draconis {
+            background: linear-gradient(135deg, #0f0b1a 0%, #1a0933 70%, #2a1b4a 100%);
+        }
+        .text-draconis-neon { color: #ff00aa; }
+        .neon-shadow {
+            text-shadow: 0 0 10px #ff00aa, 0 0 20px #e94560, 0 0 30px rgba(255, 0, 170, 0.5);
+        }
+        .glow-box {
+            box-shadow: 0 0 20px rgba(255, 0, 170, 0.7), 0 0 40px rgba(233, 69, 96, 0.3);
+        }
+        .game-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .game-checkbox:hover {
+            background-color: rgba(255, 0, 170, 0.1);
+        }
+        .game-checkbox input[type="checkbox"] {
+            accent-color: #ff00aa;
+        }
+        .game-checkbox label {
+            color: #e94560;
+            font-size: 0.9rem;
+            cursor: pointer;
+            flex-grow: 1;
+        }
+        .game-checkbox input[type="checkbox"]:disabled + label {
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+        .copy-btn {
+            background: linear-gradient(90deg, #ff00aa, #e94560);
+            color: white;
+            border: none;
+            padding: 0.95rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.4rem;
+        }
+
+        .copy-btn:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 170, 0.9);
+            transform: translateY(-2px);
+        }
+        .copy-btn:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        .search-box {
+            background: rgba(15, 11, 26, 0.7);
+            border: 1px solid #ff00aa;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            width: 100%;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 0, 170, 0.7);
+        }
+        .game-list-container {
+            max-height: 400px;
+            overflow-y: auto;
+            background: rgba(15, 11, 26, 0.5);
+            border-radius: 8px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ff00aa;
+        }
+        .alphabet-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .alphabet-btn {
+            background: rgba(15, 11, 26, 0.7);
+            border: 1px solid #ff00aa;
+            color: #e94560;
+            padding: 0.4rem 0.7rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .alphabet-btn:hover, .alphabet-btn.active {
+            background: rgba(255, 0, 170, 0.2);
+            color: white;
+        }
+        .category-filter {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .category-btn {
+            background: rgba(15, 11, 26, 0.7);
+            border: 1px solid #ff00aa;
+            color: #e94560;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(90deg, #ff00aa, #e94560);
+            color: white;
+        }
+        .pack-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(15, 11, 26, 0.7);
+            border-radius: 8px;
+            border: 1px solid #ff00aa;
+        }
+        .pack-option input[type="radio"] {
+            accent-color: #ff00aa;
+        }
+        .pack-option label {
+            color: #e94560;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .selection-info {
+            background: rgba(255, 0, 170, 0.1);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #ff00aa;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 0, 170, 0.9);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-draconis text-gray-100 font-oxanium min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-gray-900/80 rounded-xl border border-draconis-neon/40 glow-box p-6">
+        <h2 class="text-3xl mb-6 text-center neon-shadow text-draconis-neon">
+            Seleção de Jogos Xbox 360
+        </h2>
+        
+        <!-- Sistema de Seleção de Jogos -->
+        <div class="game-selection-container">
+            <div class="selection-info">
+                <div class="selected-count text-draconis-neon font-bold text-center" id="selected-count">0 jogos selecionados (máximo: 5)</div>
+            </div>
+            
+            <div class="pack-options flex gap-4 mb-4 justify-center">
+                <div class="pack-option">
+                    <input type="radio" id="pack-5" name="game-pack" value="5" checked>
+                    <label for="pack-5">Pacote de 5 jogos</label>
+                </div>
+                <div class="pack-option">
+                    <input type="radio" id="pack-15" name="game-pack" value="50">
+                    <label for="pack-15">Pacote de 50 jogos</label>
+                </div>
+            </div>
+            
+            <!-- Barra de pesquisa -->
+            <input type="text" id="game-search" class="search-box" placeholder="Pesquisar jogos...">
+            
+            <!-- Navegação por letra -->
+            <div class="alphabet-nav">
+                <button class="alphabet-btn active" data-letter="ALL">TODOS</button>
+                <button class="alphabet-btn" data-letter="A">A</button>
+                <button class="alphabet-btn" data-letter="B">B</button>
+                <button class="alphabet-btn" data-letter="C">C</button>
+                <button class="alphabet-btn" data-letter="D">D</button>
+                <button class="alphabet-btn" data-letter="E">E</button>
+                <button class="alphabet-btn" data-letter="F">F</button>
+                <button class="alphabet-btn" data-letter="G">G</button>
+                <button class="alphabet-btn" data-letter="H">H</button>
+                <button class="alphabet-btn" data-letter="I">I</button>
+                <button class="alphabet-btn" data-letter="J">J</button>
+                <button class="alphabet-btn" data-letter="K">K</button>
+                <button class="alphabet-btn" data-letter="L">L</button>
+                <button class="alphabet-btn" data-letter="M">M</button>
+                <button class="alphabet-btn" data-letter="N">N</button>
+                <button class="alphabet-btn" data-letter="O">O</button>
+                <button class="alphabet-btn" data-letter="P">P</button>
+                <button class="alphabet-btn" data-letter="Q">Q</button>
+                <button class="alphabet-btn" data-letter="R">R</button>
+                <button class="alphabet-btn" data-letter="S">S</button>
+                <button class="alphabet-btn" data-letter="T">T</button>
+                <button class="alphabet-btn" data-letter="U">U</button>
+                <button class="alphabet-btn" data-letter="V">V</button>
+                <button class="alphabet-btn" data-letter="W">W</button>
+                <button class="alphabet-btn" data-letter="X">X</button>
+                <button class="alphabet-btn" data-letter="Y">Y</button>
+                <button class="alphabet-btn" data-letter="Z">Z</button>
+            </div>
+            
+            <!-- Filtros por categoria -->
+            <div class="category-filter">
+                <button class="category-btn active" data-category="all">Todos</button>
+                <button class="category-btn" data-category="ptbr">Traduzidos</button>
+                <button class="category-btn" data-category="action">Ação</button>
+                <button class="category-btn" data-category="rpg">RPG</button>
+                <button class="category-btn" data-category="sports">Esportes</button>
+                <button class="category-btn" data-category="adventure">Aventura</button>
+                <button class="category-btn" data-category="racing">Corrida</button>
+            </div>
+            
+            <!-- Lista de jogos (será preenchida via JavaScript) -->
+            <div class="game-list-container" id="game-list">
+                <div class="text-center py-4 text-draconis-neon">Carregando jogos...</div>
+            </div>
+            
+            <div class="selection-controls flex justify-between items-center mt-4">
+                <div class="selected-count text-draconis-neon font-bold" id="selected-count-display">0 jogos selecionados</div>
+                <button class="copy-btn" id="copy-to-whatsapp" disabled><span id="copy-to-whatsappSpan">Selecionar</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Seleção copiada para a área de transferência!</div>
+
+    <script>
+        // Lista de jogos Xbox 360 (com categorias para filtro)
+        const xbox360Games = [
+            { name: "ALICE MADNESS RETURNS PT-BR", category: "ptbr" },
+            { name: "Angry Birds Star Wars", category: "action" },
+            { name: "Assassins Creed 2", category: "action" },
+            { name: "ASSASSINS CREED 3 BR RGH", category: "action" },
+            { name: "ASSASSINS CREED 4 BLACK FLAG", category: "action" },
+            { name: "ASSASSINS CREED BROTHERHOOD", category: "action" },
+            { name: "ASSASSINS CREED REVELATIONS RGH", category: "action" },
+            { name: "Batman Arkham Asylum", category: "action" },
+            { name: "BATMAN ARKHAM CITY", category: "action" },
+            { name: "BattleBlock Theater", category: "action" },
+            { name: "BIOSHOCK 2 PT BR", category: "ptbr" },
+            { name: "BIOSHOCK RGH PT-BR", category: "ptbr" },
+            { name: "Crash Twinsanity", category: "adventure" },
+            { name: "Dead Space 2 DVD1", category: "action" },
+            { name: "Dead Space 2 DVD2", category: "action" },
+            { name: "DEAD SPACE PT-BR", category: "ptbr" },
+            { name: "Diablo III PT BR", category: "ptbr" },
+            { name: "Dirt 2", category: "racing" },
+            { name: "Epic Mickey 2 The Power Of Two", category: "adventure" },
+            { name: "Far Cry 4 (USA)", category: "action" },
+            { name: "FIFA 15 PT-BR JTAG", category: "ptbr" },
+            { name: "FIFA 17 (Brazil)", category: "sports" },
+            { name: "FIFA 18 (Brazil)", category: "sports" },
+            { name: "Fight Night Champions", category: "sports" },
+            { name: "FORZA 4 Disc 2", category: "racing" },
+            { name: "FORZA 4 Play Disc", category: "racing" },
+            { name: "Forza Horizon", category: "racing" },
+            { name: "Forza Horizon (USA)", category: "racing" },
+            { name: "Forza Horizon 2", category: "racing" },
+            { name: "GEARS OF WAR LEGENDADO PT-BR", category: "ptbr" },
+            { name: "GTA 4 EFLC", category: "action" },
+            { name: "GTA 4 PT-BR", category: "ptbr" },
+            { name: "GTA 5", category: "action" },
+            { name: "Guitar Hero 6 Warriors of Rock", category: "action" },
+            { name: "Guitar Hero Metallica", category: "action" },
+            { name: "Harry Potter For Kinect", category: "adventure" },
+            { name: "HOT WHEELS WORLDS BEST DRIVER PT-BR", category: "ptbr" },
+            { name: "Injustice Gods Among Us", category: "action" },
+            { name: "Just Dance 2015 (USA)", category: "sports" },
+            { name: "Just Dance 2018", category: "sports" },
+            { name: "Just Dance 4 (USA)", category: "sports" },
+            { name: "JUST DANCE GREATEST HITS", category: "sports" },
+            { name: "Just Dance 2019", category: "sports" },
+            { name: "Kinect Adventures", category: "sports" },
+            { name: "Kinect Joy Ride", category: "sports" },
+            { name: "Kinect Rush – A Disney-Pixar Adventure", category: "adventure" },
+            { name: "Kinect Sports", category: "sports" },
+            { name: "Kinect Star Wars (USA)", category: "action" },
+            { name: "Lego Harry Potter", category: "adventure" },
+            { name: "LEGO Harry Potter – Years 1–4 (USA)", category: "adventure" },
+            { name: "LEGO Harry Potter Years 5–7", category: "adventure" },
+            { name: "Lego Jurassic World", category: "adventure" },
+            { name: "LEGO Marvel Super Heroes", category: "action" },
+            { name: "Lego Movie", category: "adventure" },
+            { name: "LEGO Pirates of the Caribbean", category: "adventure" },
+            { name: "LEGO Star Wars TCS", category: "adventure" },
+            { name: "Lego Star Wars The Complete Saga", category: "adventure" },
+            { name: "LEGO The Hobbit", category: "adventure" },
+            { name: "LEGO Batman 3 Beyond Gotham", category: "action" },
+            { name: "Lord of the Rings War of North", category: "action" },
+            { name: "Marvel vs Capcom 3 Ultimate", category: "action" },
+            { name: "MAX PAYNE 3 – Disco 1", category: "action" },
+            { name: "MAX PAYNE 3 – Disco 2", category: "action" },
+            { name: "Medal of Honor Warfighter", category: "action" },
+            { name: "Mortal Kombat 9", category: "action" },
+            { name: "NBA 2K14", category: "sports" },
+            { name: "Need for Speed Carbon", category: "racing" },
+            { name: "Need For Speed Hot Pursuit", category: "racing" },
+            { name: "Need For Speed The Run", category: "racing" },
+            { name: "Need For Speed Most Wanted (XBOX360)", category: "racing" },
+            { name: "Need For Speed Underground 2 Dublado", category: "ptbr" },
+            { name: "Nickelodeon SpongeBob", category: "adventure" },
+            { name: "PES 2014", category: "sports" },
+            { name: "PES Brazukas 2025", category: "sports" },
+            { name: "Prince of Persia The Forgotten Sands", category: "adventure" },
+            { name: "Red Dead Redemption PT-BR Disc 1", category: "ptbr" },
+            { name: "Red Dead Redemption PT-BR Disc 2", category: "ptbr" },
+            { name: "RESIDENT EVIL 4 PT-BR", category: "ptbr" },
+            { name: "RESIDENT EVIL 5 PT-BR", category: "ptbr" },
+            { name: "Resident Evil Revelations", category: "action" },
+            { name: "Rise of the Tomb Raider PT-BR", category: "ptbr" },
+            { name: "Sega Superstars Tennis", category: "sports" },
+            { name: "Sniper Ghost Warrior 2", category: "action" },
+            { name: "Sombra de Mordor", category: "action" },
+            { name: "Sonic All-Stars Racing Transformed", category: "racing" },
+            { name: "Super Street Fighter IV Arcade Edition", category: "action" },
+            { name: "Tekken 6", category: "action" },
+            { name: "Tekken Tag 2", category: "action" },
+            { name: "Tomb Raider", category: "adventure" },
+            { name: "TOMB RAIDER 2013 PT-BR", category: "ptbr" },
+            { name: "WALL·E", category: "adventure" },
+            { name: "Young Justice Legacy", category: "action" }
+        ];
+
+        // Variáveis globais
+        let selectedPack = 5;
+        let selectedGames = [];
+        let currentFilter = "all";
+        let currentLetter = "ALL";
+        let searchTerm = "";
+
+        // Inicialização quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGameSelection();
+            setupEventListeners();
+            renderGames();
+        });
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Pack selection
+            document.querySelectorAll('input[name="game-pack"]').forEach(option => {
+                option.addEventListener('change', function() {
+                    selectedPack = parseInt(this.value);
+                    updateSelectionUI();
+                    renderGames();
+                });
+            });
+
+            // Search box
+            document.getElementById('game-search').addEventListener('input', function(e) {
+                searchTerm = e.target.value.toLowerCase();
+                renderGames();
+            });
+
+            // Alphabet navigation
+            document.querySelectorAll('.alphabet-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.alphabet-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentLetter = this.getAttribute('data-letter');
+                    renderGames();
+                });
+            });
+
+            // Category filter
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.getAttribute('data-category');
+                    renderGames();
+                });
+            });
+
+            // Copy to WhatsApp button
+            document.getElementById('copy-to-whatsapp').addEventListener('click', openWhatsApp);
+            document.getElementById('copy-to-whatsappSpan').addEventListener('click', openWhatsApp);
+        }
+
+        // Inicializar sistema de seleção de jogos
+        function initializeGameSelection() {
+            updateSelectionUI();
+        }
+
+        // Filtrar jogos com base nos critérios atuais
+        function filterGames() {
+            return xbox360Games.filter(game => {
+                // Filtrar por categoria
+                if (currentFilter !== "all" && game.category !== currentFilter) {
+                    return false;
+                }
+                
+                // Filtrar por letra
+                if (currentLetter !== "ALL") {
+                    const firstLetter = game.name.charAt(0).toUpperCase();
+                    if (firstLetter !== currentLetter) {
+                        return false;
+                    }
+                }
+                
+                // Filtrar por termo de pesquisa
+                if (searchTerm && !game.name.toLowerCase().includes(searchTerm)) {
+                    return false;
+                }
+                
+                return true;
+            });
+        }
+
+        // Renderizar lista de jogos
+        function renderGames() {
+            const gameList = document.getElementById('game-list');
+            const filteredGames = filterGames();
+            
+            if (filteredGames.length === 0) {
+                gameList.innerHTML = '<div class="text-center py-4 text-draconis-neon">Nenhum jogo encontrado</div>';
+                return;
+            }
+            
+            let html = '';
+            filteredGames.forEach((game, index) => {
+                const isChecked = selectedGames.includes(game.name);
+                const isDisabled = selectedGames.length >= selectedPack && !isChecked;
+                
+                html += `
+                    <div class="game-checkbox">
+                        <input type="checkbox" id="game-${index}" value="${game.name}" 
+                            ${isChecked ? 'checked' : ''} ${isDisabled ? 'disabled' : ''}>
+                        <label for="game-${index}">${game.name}</label>
+                    </div>
+                `;
+            });
+            
+            gameList.innerHTML = html;
+            
+            // Adicionar event listeners aos checkboxes
+            gameList.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const gameName = this.value;
+                    
+                    if (this.checked) {
+                        // Adicionar jogo à seleção se não exceder o limite
+                        if (selectedGames.length < selectedPack) {
+                            selectedGames.push(gameName);
+                        } else {
+                            this.checked = false; // Desmarcar se exceder o limite
+                        }
+                    } else {
+                        // Remover jogo da seleção
+                        selectedGames = selectedGames.filter(name => name !== gameName);
+                    }
+                    
+                    updateSelectionUI();
+                    renderGames(); // Re-renderizar para atualizar estados
+                });
+            });
+        }
+
+        // Atualizar UI de seleção
+        function updateSelectionUI() {
+            // Atualizar contador
+            document.getElementById('selected-count').textContent = 
+                `${selectedGames.length} jogos selecionados (máximo: ${selectedPack})`;
+            document.getElementById('selected-count-display').textContent = 
+                `${selectedGames.length} de ${selectedPack} jogos selecionados`;
+            
+            // Habilitar/desabilitar botão
+            document.getElementById('copy-to-whatsapp').disabled = selectedGames.length === 0;
+        }
+
+        // Função para detectar se é dispositivo móvel (otimizada)
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Função para mostrar toast
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            
+            toast.textContent = text;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // Função assíncrona para copiar texto
+        async function copyToClipboard(text) {
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } else {
+                    // Fallback para navegadores antigos
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    const success = document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    return success;
+                }
+            } catch (err) {
+                console.error('Erro ao copiar:', err);
+                return false;
+            }
+        }
+
+        // Função principal assíncrona para abrir WhatsApp
+        async function openWhatsApp() {
+            if (selectedGames.length === 0) {
+                showToast("Selecione pelo menos um jogo!");
+                return;
+            }
+
+            const message = `Olá, gostaria de solicitar o pacote de ${selectedPack} jogos para Xbox 360 com os seguintes títulos:\n\n${selectedGames.join('\n')}`;
+            const phoneNumber = "+5551999930495";
+            const encodedMessage = encodeURIComponent(message);
+            const isMobile = isMobileDevice();
+
+            try {
+                // Tenta copiar para área de transferência
+                const copySuccess = await copyToClipboard(message);
+                
+                if (copySuccess) {
+                    showToast("Seleção copiada com sucesso!");
+                } else {
+                    showToast("Redirecionando para o WhatsApp...");
+                }
+
+                // Aguarda um breve momento para o toast ser exibido
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                // Prepara as URLs
+                let targetURL;
+                
+                if (isMobile) {
+                    // Para mobile: tenta app nativo primeiro, depois fallback para web
+                    const whatsappURL = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+                    const fallbackURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                    
+                    // Tenta abrir o app nativo
+                    window.location.href = whatsappURL;
+                    
+                    // Fallback após 2 segundos se ainda estiver na mesma página
+                    setTimeout(() => {
+                        if (!document.hidden && document.visibilityState === 'visible') {
+                            window.location.href = fallbackURL;
+                        }
+                    }, 2000);
+                    
+                } else {
+                    // Para desktop: abre diretamente na web
+                    targetURL = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+                    window.open(targetURL, '_blank', 'noopener,noreferrer');
+                }
+
+            } catch (error) {
+                console.error('Erro no processo:', error);
+                showToast("Erro ao processar. Tente novamente.");
+                
+                // Fallback final em caso de erro
+                const fallbackURL = isMobile ? 
+                    `https://wa.me/${phoneNumber}?text=${encodedMessage}` :
+                    `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+                    
+                if (isMobile) {
+                    window.location.href = fallbackURL;
+                } else {
+                    window.open(fallbackURL, '_blank', 'noopener,noreferrer');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
