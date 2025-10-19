@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicas Xbox 360 | Draconis Técnica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+        .font-oxanium { font-family: 'Oxanium', sans-serif; }
+        .bg-draconis {
+            background: linear-gradient(135deg, #0f0b1a 0%, #1a0933 70%, #2a1b4a 100%);
+        }
+        .text-draconis { color: #e94560; }
+        .text-draconis-neon { color: #ff00aa; }
+        .border-draconis-neon { border-color: #ff00aa; }
+        .neon-shadow {
+            text-shadow: 0 0 10px #ff00aa, 0 0 20px #e94560, 0 0 30px rgba(255, 0, 170, 0.5);
+        }
+        .glow-box {
+            box-shadow: 0 0 20px rgba(255, 0, 170, 0.7), 0 0 40px rgba(233, 69, 96, 0.3);
+        }
+        .pulse {
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.85; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        .mobile-menu.active {
+            max-height: 600px;
+        }
+        .table-container {
+            background: rgba(15, 11, 26, 0.9);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 0 25px rgba(255, 0, 170, 0.4);
+            margin-bottom: 2rem;
+        }
+        .table-header {
+            background: linear-gradient(90deg, #ff00aa, #e94560);
+            color: white;
+            font-weight: bold;
+        }
+        .table-row:hover {
+            background: rgba(255, 0, 170, 0.1);
+            transition: background 0.3s ease;
+        }
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ff00aa, transparent);
+            margin: 2rem 0;
+        }
+        /* Accordion Styles */
+        .accordion-button {
+            background: linear-gradient(90deg, #ff00aa, #e94560);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+        .accordion-button:hover {
+            background: linear-gradient(90deg, #e94560, #ff00aa);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: rgba(15, 11, 26, 0.95);
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            padding: 0 1rem;
+        }
+        .accordion-content.active {
+            max-height: 800px; /* Adjust based on content size */
+            padding: 1rem;
+        }
+        .tips-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .tips-list li {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 0, 170, 0.05);
+            border-left: 4px solid #ff00aa;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+        }
+        .tips-list li strong {
+            color: #ff00aa;
+        }
+    </style>
+</head>
+<body class="bg-draconis text-gray-100 font-oxanium">
+    <!-- Header -->
+    <header class="container mx-auto px-6 py-6 border-b border-draconis-neon/30">
+        <div class="flex justify-between items-center">
+            <a href="/" class="font-rajdhani text-3xl neon-shadow tracking-wider">DRACONIS</a>
+            <button id="mobile-menu-button" class="md:hidden text-draconis-neon focus:outline-none">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <!-- Menu Desktop -->
+
+        </div>
+
+    </header>
+
+    <!-- Hero Section -->
+    <section class="container mx-auto px-6 py-16 md:py-24 text-center">
+        <div class="flex justify-center mb-10">
+            <img src="Draconis.png" alt="Logo Draconis" class="h-64 w-auto rounded-xl glow-box pulse">
+        </div>
+        <h1 class="font-rajdhani text-6xl md:text-8xl mb-8 neon-shadow tracking-tight">
+            DICAS <span class="text-draconis-neon">XBOX 360</span>
+        </h1>
+        <p class="text-2xl md:text-3xl mb-12 max-w-3xl mx-auto leading-relaxed">Dicas rápidas para evitar erros no seu Xbox 360 desbloqueado com Draconis</p>
+        <a href="https://wa.me/555199908347" class="bg-gradient-to-r from-draconis-neon to-draconis text-white px-10 py-4 rounded-xl font-bold hover:bg-purple-900/50 hover:glow-box transition inline-block neon-shadow text-xl tracking-wide">
+            ✆ WHATSAPP (51) 9990-8347
+        </a>
+        <div class="mt-20">
+            <div class="inline-block h-1 w-32 bg-draconis-neon glow-box rounded-full"></div>
+        </div>
+    </section>
+
+    <!-- Dicas Section -->
+    <section class="container mx-auto px-6 py-20">
+        <h2 class="font-rajdhani text-5xl mb-16 text-center neon-shadow">
+            <span class="text-draconis-neon">/</span> OBRIGADO POR ADQUIRIR O DESBLOQUEIO DRACONIS <span class="text-draconis-neon">/</span>
+        </h2>
+        <p class="text-xl mb-12 max-w-3xl mx-auto text-center font-oxanium leading-relaxed text-purple-200">
+            Seu Xbox 360 agora está pronto para uma experiência incrível com jogos e dashboards personalizados. 
+            Para garantir que tudo funcione perfeitamente, aqui vão algumas <strong class="text-draconis-neon">dicas rápidas</strong> e um <strong class="text-draconis-neon">passo a passo simples</strong> para evitar e corrigir erros comuns.
+        </p>
+
+        <div class="section-divider"></div>
+
+        <div class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon text-center">⚙️ Dicas Rápidas para Evitar Erros</h3>
+            <ul class="tips-list">
+                <li>
+                    <strong>💡 Se o seu dashboard (menu de jogos Aurora) não iniciou:</strong><br>
+                    ➜ Desligue o console, aguarde 10 segundos e ligue novamente.<br>
+                    Às vezes o sistema apenas demora para carregar ou inicia o menu original do Xbox.
+                </li>
+                <li>
+                    <strong>⏳ Se o dashboard Aurora demorar mais de 1 minuto para iniciar:</strong><br>
+                    Isso pode indicar um pequeno travamento na memória.<br>
+                    ➜ Desligue e ligue novamente o console — não insira muitos botões, isso só atrasa o carregamento.
+                </li>
+                <li>
+                    <strong>⚠️ Importante:</strong> Sempre priorize a paciência — o sistema pode demorar um pouco para se ajustar após o desbloqueio.
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon text-center">🧩 Passo a Passo Simples para Corrigir Erros Comuns</h3>
+            <ol class="tips-list space-y-4">
+                <li class="list-item">
+                    <strong>1️⃣ Verifique se é só um travamento momentâneo</strong><br>
+                    Às vezes o console apenas buga temporariamente:<br>
+                    Se as luzes travarem em verde ou 2 segmentos ficarem apagados:<br>
+                    ➜ Desligue o console, espere 10 segundos, e ligue novamente.<br>
+                    Isso costuma normalizar o sistema.<br>
+                    <em class="text-purple-300">💬 Dica: Evite desligar direto da tomada — sempre segure o botão Power até apagar a luz.</em>
+                </li>
+                <li class="list-item">
+                    <strong>4️⃣ Se o console travar na tela preta</strong><br>
+                    Desligue, retire o HD externo, e ligue novamente.<br>
+                    Se abrir o menu normal do Xbox, o problema pode estar nos arquivos do Aurora.<br>
+                    ➜ Conecte o HD novamente e tente abrir o Aurora manualmente pelo XEXMenu.
+                </li>
+                <li class="list-item">
+                    <strong>5️⃣ Dica de Ouro 🧠</strong><br>
+                    Sempre espere o console iniciar completamente antes de mexer.<br>
+                    Evite ligar e desligar várias vezes seguidas.<br>
+                    <strong class="text-draconis-neon">Não aceite atualizações online</strong> — isso pode remover o desbloqueio.
+                </li>
+            </ol>
+        </div>
+
+        <!-- Accordion for Additional Tips or Game List if needed -->
+        <div class="accordion mt-8">
+            <div class="accordion-button" id="extra-tips-toggle">
+                <span>Dicas Adicionais e Suporte</span>
+                <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </div>
+            <div class="accordion-content" id="extra-tips-content">
+                <div class="p-4">
+                    <p class="mb-4">Precisa de mais ajuda? Entre em contato!</p>
+                    <a href="https://wa.me/555199908347" class="bg-gradient-to-r from-draconis-neon to-draconis text-white px-8 py-3 rounded-xl font-bold inline-block neon-shadow">✆ Suporte via WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="container mx-auto px-6 py-24 text-center">
+        <h2 class="font-rajdhani text-6xl md:text-7xl mb-8 neon-shadow">
+            <span class="text-draconis-neon">LEVE SEU CONSOLE</span> AO PRÓXIMO NÍVEL
+        </h2>
+        <p class="text-2xl mb-12 max-w-3xl mx-auto font-oxanium leading-relaxed">Tecnologia e paixão por games em um só lugar.</p>
+        <a href="https://wa.me/555199908347" class="bg-gradient-to-r from-draconis-neon to-draconis text-white px-10 py-4 rounded-xl font-bold hover:bg-purple-900/50 hover:glow-box transition inline-block neon-shadow font-rajdhani text-2xl tracking-wide">
+            ✆ FALE COM A DRACONIS
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 text-center border-t border-draconis-neon/30 bg-gray-900/50">
+        <div class="container mx-auto px-6">
+            <p class="font-oxanium text-base text-purple-300/80">© 2023 DRACONIS TÉCNICA INFORMÁTICA E GAMES • (51) 9990-8347</p>
+            <p class="mt-3 font-oxanium text-sm text-purple-400/60">Tecnologia com DNA gamer</p>
+        </div>
+    </footer>
+
+    <!-- Script para menu mobile e accordion -->
+    <script>
+        // Mobile Menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('active');
+        });
+
+        // Accordion Toggle
+        document.getElementById('extra-tips-toggle').addEventListener('click', function() {
+            const content = document.getElementById('extra-tips-content');
+            const arrow = this.querySelector('svg');
+            content.classList.toggle('active');
+            arrow.classList.toggle('rotate-180');
+        });
+    </script>
+</body>
+</html>
