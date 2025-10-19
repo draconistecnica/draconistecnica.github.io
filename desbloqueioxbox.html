@@ -105,6 +105,32 @@
         .tips-list li strong {
             color: #ff00aa;
         }
+        .usage-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .usage-steps li {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 0, 170, 0.05);
+            border-left: 4px solid #e94560;
+            border-radius: 0 8px 8px 0;
+            font-size: 1.1rem;
+        }
+        .usage-steps li strong {
+            color: #e94560;
+        }
+        .warning-box {
+            background: rgba(233, 69, 96, 0.1);
+            border-left: 4px solid #e94560;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+        }
+        .warning-box strong {
+            color: #e94560;
+        }
     </style>
 </head>
 <body class="bg-draconis text-gray-100 font-oxanium">
@@ -118,9 +144,46 @@
                 </svg>
             </button>
             <!-- Menu Desktop -->
-
+            <nav class="hidden md:block">
+                <ul class="flex space-x-10 font-oxanium text-lg">
+                    <li><a href="/" class="hover:text-draconis-neon transition hover:neon-shadow">Início</a></li>
+                    <li><a href="/#servicos" class="hover:text-draconis-neon transition hover:neon-shadow">Serviços</a></li>
+                    <li class="relative">
+                        <a href="/#precos" class="hover:text-draconis-neon transition hover:neon-shadow">Preços</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/#precos-ps2">PS2</a></li>
+                            <li><a href="/#precos-ps3">PS3</a></li>
+                            <li><a href="/#precos-xbox360">Xbox 360</a></li>
+                            <li><a href="/#precos-ps4">PS4</a></li>
+                            <li><a href="/#precos-xboxone">Xbox One</a></li>
+                            <li><a href="/#precos-computadores">Computadores/Notebooks</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/#diferenciais" class="hover:text-draconis-neon transition hover:neon-shadow">Diferenciais</a></li>
+                    <li><a href="/#contato" class="hover:text-draconis-neon transition hover:neon-shadow">Contato</a></li>
+                </ul>
+            </nav>
         </div>
-
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="mobile-menu md:hidden">
+            <ul class="flex flex-col space-y-6 py-6 font-oxanium text-lg">
+                <li><a href="/" class="block hover:text-draconis-neon transition">Início</a></li>
+                <li><a href="/#servicos" class="block hover:text-draconis-neon transition">Serviços</a></li>
+                <li>
+                    <a href="/#precos" class="block hover:text-draconis-neon transition">Preços</a>
+                    <ul class="pl-4 mt-2 space-y-2">
+                        <li><a href="/#precos-ps2" class="block hover:text-draconis-neon transition">PS2</a></li>
+                        <li><a href="/#precos-ps3" class="block hover:text-draconis-neon transition">PS3</a></li>
+                        <li><a href="/#precos-xbox360" class="block hover:text-draconis-neon transition">Xbox 360</a></li>
+                        <li><a href="/#precos-ps4" class="block hover:text-draconis-neon transition">PS4</a></li>
+                        <li><a href="/#precos-xboxone" class="block hover:text-draconis-neon transition">Xbox One</a></li>
+                        <li><a href="/#precos-computadores" class="block hover:text-draconis-neon transition">Computadores/Notebooks</a></li>
+                    </ul>
+                </li>
+                <li><a href="/#diferenciais" class="block hover:text-draconis-neon transition">Diferenciais</a></li>
+                <li><a href="/#contato" class="block hover:text-draconis-neon transition">Contato</a></li>
+            </ul>
+        </div>
     </header>
 
     <!-- Hero Section -->
@@ -153,6 +216,71 @@
         <div class="section-divider"></div>
 
         <div class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon text-center">🎮 Como Usar Seu Xbox 360 Desbloqueado</h3>
+            <p class="mb-6 text-lg text-purple-200 text-center">Aqui vai um guia simples para navegar no dashboard Aurora e curtir seus jogos sem complicações.</p>
+            <ul class="usage-steps">
+                <li>
+                    <strong>🔆 Aguarde o Inicialização Completa:</strong><br>
+                    Aguarde as luzes do console terminarem de piscar. Isso garante que o sistema carregue corretamente o dashboard Aurora (menu de jogos).
+                </li>
+                <li>
+                    <strong>👤 Selecionar Seu Usuário:</strong><br>
+                    Quando o menu de jogos aparecer, pressione o <strong>botão do meio do controle</strong> (o botão Xbox).<br>
+                    Vá em "Entrar" e selecione seu perfil de usuário preferido.
+                </li>
+                <li>
+                    <strong>🎯 Selecionar e Iniciar um Jogo:</strong><br>
+                    Com o usuário logado, navegue pelo menu e selecione o jogo desejado.<br>
+                    Pressione <strong>X</strong> para selecioná-lo e iniciá-lo.
+                </li>
+                <li>
+                    <strong>↩️ Voltar ao Menu Aurora Durante o Jogo:</strong><br>
+                    Para sair do jogo e retornar ao menu Aurora, pressione o <strong>botão do meio do controle</strong> (botão Xbox).<br>
+                    Selecione a opção <strong>"Aurora"</strong> no menu que aparece.
+                </li>
+                <li class="warning-box">
+                    <strong>⚠️ AVISO IMPORTANTE: Perfis de Usuário</strong><br>
+                    NUNCA delete os perfis! Você pode criar quantos quiser, mas <strong>nunca delete o Player 1 e Player 2</strong>. Esses perfis são essenciais para o funcionamento do desbloqueio e do Aurora. Deletá-los pode causar erros graves no sistema.
+                </li>
+            </ul>
+            <p class="mt-4 text-sm text-purple-300/70 italic">💡 Dica Extra: Sempre use o botão Xbox para acessar opções rápidas — ele é seu melhor amigo no Aurora!</p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="table-container">
+            <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon text-center">🚨 Meu Jogo Não Salva? Verifique a Data do Console</h3>
+            <p class="mb-6 text-lg text-purple-200 text-center">Um problema comum em consoles desbloqueados é o salvamento de jogos falhar devido à data e hora incorretas. Siga este passo a passo simples para ajustar:</p>
+            <ol class="usage-steps space-y-4">
+                <li>
+                    <strong>1️⃣ Pressione o Botão Guide:</strong><br>
+                    Com o console ligado e no dashboard Aurora, pressione o <strong>botão Xbox no controle</strong> (botão Guide no meio).
+                </li>
+                <li>
+                    <strong>2️⃣ Acesse as Configurações:</strong><br>
+                    No menu que aparece, vá para <strong>"Configurações do Sistema"</strong> (System Settings).
+                </li>
+                <li>
+                    <strong>3️⃣ Selecione Data e Hora:</strong><br>
+                    Dentro das configurações, encontre e selecione <strong>"Data e Hora"</strong> (Date and Time).
+                </li>
+                <li>
+                    <strong>4️⃣ Ajuste Manualmente:</strong><br>
+                    Desative a sincronização automática se necessário (para evitar atualizações online).<br>
+                    Ajuste a <strong>data atual</strong> e o <strong>horário</strong> para os valores corretos (use o controle para navegar e confirmar).
+                </li>
+                <li>
+                    <strong>5️⃣ Salve e Teste:</strong><br>
+                    Confirme as alterações e saia das configurações.<br>
+                    Reinicie o console se preciso e teste o salvamento no jogo.
+                </li>
+            </ol>
+            <p class="mt-4 text-sm text-purple-300/70 italic">💡 Nota: A data ajustada manualmente pode resetar ao desligar da tomada. Evite sincronização online para preservar o desbloqueio. Se o problema persistir, entre em contato!</p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="table-container">
             <h3 class="font-rajdhani text-3xl mb-6 text-draconis-neon text-center">⚙️ Dicas Rápidas para Evitar Erros</h3>
             <ul class="tips-list">
                 <li>
@@ -163,7 +291,7 @@
                 <li>
                     <strong>⏳ Se o dashboard Aurora demorar mais de 1 minuto para iniciar:</strong><br>
                     Isso pode indicar um pequeno travamento na memória.<br>
-                    ➜ Desligue e ligue novamente o console — não insira muitos botões, isso só atrasa o carregamento.
+                    ➜ Desligue e ligue novamente o console — não insista em apertar muitos botões, isso só atrasa o carregamento.
                 </li>
                 <li>
                     <strong>⚠️ Importante:</strong> Sempre priorize a paciência — o sistema pode demorar um pouco para se ajustar após o desbloqueio.
